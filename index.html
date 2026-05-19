@@ -64,8 +64,8 @@
     .pts-zero  { font-family: 'DM Mono', monospace; color: var(--muted-2); }
     .pts-neg   { font-family: 'DM Mono', monospace; color: var(--amber); font-weight: 600; }
 
-    .game-heading { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink-2); margin-bottom: 0.3rem; }
-    .game-label { font-size: 12px; color: var(--muted); margin-bottom: 1.75rem; }
+    .game-heading { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink-2); margin-bottom: 0.4rem; }
+    .game-label { font-size: 15px; color: var(--ink-2); font-weight: 500; margin-bottom: 1.75rem; line-height: 1.5; border-left: 3px solid var(--gold); padding-left: 0.75rem; }
     .field-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
     .nick-row { display: flex; gap: 10px; align-items: stretch; }
     .nick-input { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 11px 14px; flex: 1; outline: none; transition: border-color 0.15s; }
@@ -258,6 +258,25 @@ const GAMES = [{
     { film:"Endrendrum Punnagai", correct:"Jiiva",            wrong:"Vijay",            trap:"Endrendrum Kaadhal" },
     { film:"Unnai Ninaithu",      correct:"Suriya",           wrong:"Ajith",            trap:"Unnai Thedi" },
     { film:"Sethupathi IPS",      correct:"Vijayakanth",      wrong:"Vijay Sethupathi", trap:"Sethupathi" },
+  ]
+},
+{
+  id: 'game-002',
+  name: 'Game 2',
+  label: 'Tamil Cinema — Name the Music Director of the movie',
+  goal: 'Find the correct Music Director of the movie',
+  answerLabel: 'WHO IS THE MUSIC DIRECTOR?',
+  films: [
+    { film:"Rajapattai",       correct:"Yuvan Shankar Raja", wrong:"Ilaiyaraaja",      trap:"Rajapattai sounds Ilaiyaraaja-era" },
+    { film:"Kadhal Koattai",   correct:"Deva",               wrong:"A.R. Rahman",      trap:"Kadhal films often AR Rahman" },
+    { film:"Naan",             correct:"Vijay Antony",       wrong:"Ilaiyaraaja",      trap:"Naan sounds classic era" },
+    { film:"Thiruda Thirudi",  correct:"Dhina",              wrong:"A.R. Rahman",      trap:"Thiruda Thiruda was AR Rahman" },
+    { film:"3 Roses",          correct:"Karthik Raja",       wrong:"Anirudh",          trap:"3 sounds new-gen Anirudh" },
+    { film:"Anbe Aaruyire",    correct:"A.R. Rahman",        wrong:"Vidhyasagar",      trap:"Anbe films often Vidhyasagar" },
+    { film:"Tenaliraman",      correct:"Imman",              wrong:"A.R. Rahman",      trap:"Tenali sounds AR Rahman comedy" },
+    { film:"Indian 2",         correct:"Anirudh",            wrong:"A.R. Rahman",      trap:"Indian 1 was AR Rahman" },
+    { film:"Mounam Sammadham", correct:"Ilaiyaraaja",        wrong:"Yuvan Shankar Raja", trap:"Mounam Pesiyathey was Yuvan" },
+    { film:"Puthiya Paravai",  correct:"MSV",                wrong:"A.R. Rahman",      trap:"Puthiya sounds new-gen" },
   ]
 }];
 
