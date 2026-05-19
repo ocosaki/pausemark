@@ -297,28 +297,27 @@ async function getScores(gameId){
 
 async function saveScore(gameId, nick, score){
   try{
-    // Check if nick already has a score today for this game
-    const existing = await sbFetch(
-      `/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&nick=eq.${encodeURIComponent(nick)}&limit=1`
-    );
-    if(existing && existing.length > 0){
-      // Only update if new score is better
-      if(score > existing[0].score){
-        await sbFetch(
-          `/rest/v1/scores?id=eq.${existing[0].id}`,
-          { method:'PATCH', body: JSON.stringify({score, ts: Date.now()}) }
-        );
-      }
-    } else {
-      // Insert new score
+    // Upsert — insert or update if score is better
+    // Requires unique constraint on (game_id, nick, play_date)
+    await sbFetch('/rest/v1/scores', {
+      method: 'POST',
+      prefer: 'return=minimal',
+      headers: { 'Prefer': 'resolution=merge-duplicates' },
+      body: JSON.stringify({ game_id: gameId, nick, score, play_date: todayDate(), ts: Date.now() })
+    });
+    return await getScores(gameId);
+  }catch(e){
+    // Fallback — try plain insert even if upsert fails
+    try{
       await sbFetch('/rest/v1/scores', {
         method: 'POST',
         prefer: 'return=minimal',
         body: JSON.stringify({ game_id: gameId, nick, score, play_date: todayDate(), ts: Date.now() })
       });
-    }
+    }catch(e2){}
     return await getScores(gameId);
-  }catch(e){return[];}}
+  }
+}
 
 
 // ── ANALYTICS ──
