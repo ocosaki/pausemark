@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PauseMark — Timing is Everything</title>
+  <meta name="description" content="PauseMark is a focus game where timing matters as much as knowledge. Can you wait long enough?"/>
+  <meta property="og:title" content="PauseMark — Timing is Everything"/>
+  <meta property="og:description" content="Not just a quiz. The right answer at the wrong moment is worth nothing."/>
+  <meta property="og:url" content="https://pausemark.orucupoxygen.com"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a84c; --gold-light: #e8c870; --gold-dark: #8a6a20;
+      --ink: #111010; --ink-2: #1a1512; --ink-3: #2a2520; --ink-4: #3a3530;
+      --cream: #f5f0e8; --cream-2: #f0ebe0; --cream-3: #ece7dc;
+      --muted: #8a7f72; --muted-2: #6b6258; --muted-3: #4a4540;
+      --text-light: #c8bfb0;
+      --green: #1d9e60; --green-bg: #edfaf3;
+      --red: #c0392b; --red-bg: #fdf0ee;
+      --amber: #c07820; --amber-bg: #fdf6ee;
+    }
+    html, body { min-height: 100vh; background: var(--ink); font-family: 'DM Sans', sans-serif; color: var(--cream); }
+    #app { max-width: 960px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--ink); }
+
+    .logo-strip { background: var(--ink); border-bottom: 1px solid var(--ink-3); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 88px; flex-shrink: 0; }
+    .logo-img { height: 70px; width: auto; object-fit: contain; }
+    .logo-fallback { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
+    .tab-area { display: flex; align-items: center; gap: 0.75rem; overflow-x: auto; }
+    .tab-label { font-size: 11px; letter-spacing: 0.12em; color: var(--muted-2); white-space: nowrap; text-transform: uppercase; }
+    .game-tab { background: none; border: 1px solid var(--ink-4); border-radius: 6px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 6px 14px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+    .game-tab:hover { border-color: var(--gold); color: var(--cream); }
+    .game-tab.active { border-color: var(--gold); color: var(--cream); background: #1e1a10; }
+
+    .main-layout { display: grid; grid-template-columns: 1fr 240px; flex: 1; }
+    .game-panel { padding: 2rem; background: var(--cream); color: var(--ink-2); overflow-y: auto; min-height: 600px; }
+    .lb-panel { background: #0d0c0a; padding: 1.5rem 1.25rem; border-left: 1px solid var(--ink-3); overflow-y: auto; }
+    .lb-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 0.2rem; }
+    .lb-date { font-size: 10px; color: var(--muted-3); margin-bottom: 1.25rem; letter-spacing: 0.03em; }
+    .lb-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--ink-3); font-size: 12px; }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-rank { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted-3); width: 18px; text-align: right; flex-shrink: 0; }
+    .lb-rank.gold { color: var(--gold); } .lb-rank.silver { color: #8a9aaa; } .lb-rank.bronze { color: #a07050; }
+    .lb-name { flex: 1; color: var(--text-light); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lb-score { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold); flex-shrink: 0; }
+    .lb-row.hl { background: #1e1a10; border-radius: 6px; padding: 7px 6px; margin: 0 -6px; }
+    .lb-row.hl .lb-name { color: var(--cream); }
+    .lb-empty { font-size: 12px; color: var(--muted-3); text-align: center; padding: 2rem 0; line-height: 1.9; }
+
+    .rules-card { background: var(--ink-2); border-radius: 12px; padding: 1.75rem; margin-bottom: 2rem; border-left: 3px solid var(--gold); }
+    .rules-philosophy { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--cream); line-height: 1.9; margin-bottom: 1.5rem; font-style: italic; }
+    .rules-philosophy strong { font-style: normal; color: var(--gold); }
+    .rules-mechanics { font-size: 13px; color: var(--text-light); line-height: 1.9; margin-bottom: 1.5rem; }
+    .rules-mechanics strong { color: var(--cream); }
+    .rules-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .rules-table th { text-align: left; color: var(--muted-2); font-weight: 500; padding: 6px 10px; border-bottom: 1px solid var(--ink-3); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .rules-table td { padding: 7px 10px; color: var(--text-light); border-bottom: 1px solid #1e1c18; }
+    .rules-table tr:last-child td { border-bottom: none; }
+    .pts-green { font-family: 'DM Mono', monospace; color: var(--green); font-weight: 700; font-size: 13px; }
+    .pts-zero  { font-family: 'DM Mono', monospace; color: var(--muted-2); }
+    .pts-neg   { font-family: 'DM Mono', monospace; color: var(--amber); font-weight: 600; }
+
+    .game-heading { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink-2); margin-bottom: 0.3rem; }
+    .game-label { font-size: 12px; color: var(--muted); margin-bottom: 1.75rem; }
+    .field-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .nick-row { display: flex; gap: 10px; align-items: stretch; }
+    .nick-input { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 11px 14px; flex: 1; outline: none; transition: border-color 0.15s; }
+    .nick-input:focus { border-color: var(--gold); }
+    .nick-input::placeholder { color: #bbb; }
+    .btn-play { background: var(--gold); border: none; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 11px 30px; cursor: pointer; transition: background 0.15s; white-space: nowrap; letter-spacing: 0.02em; }
+    .btn-play:hover { background: var(--gold-light); }
+    .btn-ghost { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; color: #555; font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 24px; cursor: pointer; transition: all 0.15s; display: block; margin: 0 auto; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold-dark); }
+
+    .score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .score-total { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); }
+    .score-total strong { font-size: 22px; color: var(--ink-2); margin-right: 2px; }
+    .round-flash { font-family: 'DM Mono', monospace; font-size: 17px; font-weight: 500; min-width: 50px; text-align: right; transition: opacity 0.4s; }
+    .progress-line { display: flex; gap: 6px; margin-bottom: 1.25rem; }
+    .pip { width: 8px; height: 8px; border-radius: 50%; background: #d5cfc5; border: 1px solid #bbb; transition: background 0.2s; }
+    .pip.active { background: var(--muted); border-color: var(--muted); }
+    .pip.ok     { background: var(--green); border-color: var(--green); }
+    .pip.bad    { background: var(--red);   border-color: var(--red); }
+    .pip.ep     { background: var(--amber); border-color: var(--amber); }
+
+    .goal-line { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 1.25rem; font-weight: 600; }
+    .title-wrap { background: var(--ink-2); border-radius: 10px; padding: 1.25rem 1rem; margin-bottom: 0.5rem; }
+    .title-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 0.6rem; }
+    .title-text { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; color: var(--cream); letter-spacing: 3px; text-align: center; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+    .cur { display: inline-block; width: 2px; height: 26px; background: var(--gold); margin-left: 3px; vertical-align: middle; animation: blink 0.8s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .trap-hint { font-size: 11px; color: #aaa; text-align: center; min-height: 18px; margin: 0.5rem 0 0.75rem; letter-spacing: 0.03em; }
+    .wait-inst { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 1rem; }
+    .wait-num { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: var(--ink-2); margin: 0 4px; }
+    .answer-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 700; text-align: center; margin-bottom: 0.75rem; }
+    .dot-zone { height: 28px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #bbb; animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:0.25;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+
+    .choices { display: flex; gap: 12px; justify-content: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .choice-btn { min-width: 148px; padding: 14px 20px; background: #fff; border: 1.5px solid #c8c0b0; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .choice-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-dark); background: #fffdf5; }
+    .choice-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .choice-btn.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+    .choice-btn.wrong   { border-color: var(--red);   background: var(--red-bg);   color: var(--red); }
+    .choice-btn.early   { border-color: var(--amber); background: var(--amber-bg); color: var(--amber); animation: shake 0.3s ease; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+    .feedback { text-align: center; font-size: 13px; min-height: 40px; line-height: 1.7; color: var(--muted); }
+    .feedback.good { color: var(--green); } .feedback.bad { color: var(--red); } .feedback.et { color: var(--amber); }
+
+    .result-big { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700; color: var(--ink-2); line-height: 1; text-align: center; margin-bottom: 0.25rem; }
+    .result-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 1rem; }
+    .result-rank-num { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold-dark); text-align: center; margin-bottom: 1rem; }
+    .result-msg-card { background: var(--ink-2); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 3px solid var(--gold); }
+    .result-msg-text { font-size: 13px; color: var(--text-light); line-height: 1.9; margin-bottom: 1rem; }
+    .result-msg-link { display: inline-block; font-size: 12px; color: var(--gold); font-weight: 500; letter-spacing: 0.04em; text-decoration: none; border-bottom: 1px solid var(--gold-dark); padding-bottom: 1px; }
+    .result-msg-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+    .res-table { border: 1.5px solid #d5cfc5; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; background: #fff; }
+    .res-table table { width: 100%; border-collapse: collapse; }
+    .res-table th { text-align: left; font-size: 11px; color: var(--muted); padding: 7px 10px; font-weight: 500; background: var(--cream-2); border-bottom: 1px solid #d5cfc5; letter-spacing: 0.04em; }
+    .res-table td { font-size: 12px; padding: 7px 10px; border-bottom: 1px solid var(--cream-3); color: #3a3530; }
+    .res-table tr:last-child td { border-bottom: none; }
+
+    /* APP BUTTONS */
+    .app-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--ink-3); }
+    .app-section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-3); margin-bottom: 0.75rem; }
+    .app-btn {
+      display: flex; align-items: center; gap: 10px;
+      background: #1a1a16; border: 1px solid var(--ink-4);
+      border-radius: 8px; padding: 10px 12px;
+      text-decoration: none; transition: all 0.15s;
+      margin-bottom: 8px;
+    }
+    .app-btn:hover { border-color: var(--gold); background: #1e1a10; }
+    .app-btn-icon { font-size: 20px; flex-shrink: 0; }
+    .app-btn-text { flex: 1; }
+    .app-btn-sub { font-size: 9px; color: var(--muted-3); letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 1px; }
+    .app-btn-name { font-size: 13px; color: var(--cream); font-weight: 500; display: block; }
+
+    /* OCO HOMEPAGE LINK */
+    .oco-link {
+      display: block; margin-top: 1.25rem;
+      text-align: center; font-size: 11px;
+      color: var(--muted-2); text-decoration: none;
+      letter-spacing: 0.04em; transition: color 0.15s;
+      padding-top: 1rem; border-top: 1px solid var(--ink-3);
+    }
+    .oco-link:hover { color: var(--gold); }
+    .oco-link span { color: var(--gold); }
+
+    /* FOOTER */
+    .page-footer {
+      background: var(--ink);
+      border-top: 1px solid var(--ink-3);
+      padding: 1.25rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .footer-oco {
+      font-size: 12px; color: var(--muted-2);
+      text-decoration: none; transition: color 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .footer-oco:hover { color: var(--gold); }
+    .footer-oco strong { color: var(--gold); font-weight: 500; }
+    .footer-copy { font-size: 11px; color: var(--muted-3); }
+
+    @media (max-width: 640px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .lb-panel { border-left: none; border-top: 1px solid var(--ink-3); }
+      .logo-strip { padding: 0 1rem; height: 72px; }
+      .logo-img { height: 56px; }
+      .game-panel { padding: 1.25rem; }
+      .title-text { font-size: 20px; }
+      .result-big { font-size: 54px; }
+      .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="logo-strip">
+    <a href="https://orucupoxygen.com" target="_blank" style="display:flex;align-items:center;text-decoration:none">
+      <img class="logo-img"
+        src="https://cdn.jsdelivr.net/gh/ocosaki/pausemark@main/pausemarklogo.jpg"
+        alt="PauseMark"
+        onerror="this.style.display='none';document.getElementById('lf').style.display='block'"/>
+      <span id="lf" style="display:none" class="logo-fallback">PauseMark</span>
+    </a>
+    <div class="tab-area">
+      <span class="tab-label">Games</span>
+      <div id="tabs"></div>
+    </div>
+  </div>
+  <div class="main-layout">
+    <div class="game-panel" id="gp"></div>
+    <div class="lb-panel">
+      <div class="lb-title" id="lbt">Today's Top 10</div>
+      <div class="lb-date" id="lbd"></div>
+      <div id="lbl"></div>
+      <div class="app-section">
+        <div class="app-section-label">Get the app</div>
+        <a class="app-btn" href="https://apps.apple.com/app/id6758971206" target="_blank">
+          <span class="app-btn-icon">🍎</span>
+          <span class="app-btn-text">
+            <span class="app-btn-sub">Download on the</span>
+            <span class="app-btn-name">App Store</span>
+          </span>
+        </a>
+        <a class="app-btn" href="https://play.google.com/store/apps/details?id=com.orucupoxygen.app" target="_blank">
+          <span class="app-btn-icon">▶</span>
+          <span class="app-btn-text">
+            <span class="app-btn-sub">Get it on</span>
+            <span class="app-btn-name">Google Play</span>
+          </span>
+        </a>
+        <a class="oco-link" href="https://orucupoxygen.com" target="_blank">
+          Visit <span>orucupoxygen.com</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <a class="footer-oco" href="https://orucupoxygen.com" target="_blank">
+      A game by <strong>Oru Cup Oxygen</strong>
+    </a>
+    <span class="footer-copy">pausemark.orucupoxygen.com</span>
+  </div>
+</div>
+
+<script>
+const GAMES = [{
+  id: 'game-001',
+  name: 'Game 1',
+  label: 'Tamil Cinema — Choose the right lead (Hero/Heroine) of the movies',
+  goal: 'Find the correct Lead of the movie',
+  answerLabel: 'WHO IS THE LEAD?',
+  films: [
+    { film:"Pandiya Naadu",       correct:"Vishal",           wrong:"Rajinikanth",      trap:"Pandiyan" },
+    { film:"OK Kanmani",          correct:"Dulquer Salmaan",  wrong:"Udhayanidhi",      trap:"Oru Kal Oru Kannadi" },
+    { film:"Vettaikkaran",        correct:"Vijay",            wrong:"Rajinikanth",      trap:"Vettaiyan" },
+    { film:"Romeo Juliet",        correct:"Jayam Ravi",       wrong:"Vijay Antony",     trap:"Romeo" },
+    { film:"Kana Kandaen",        correct:"Gopika",           wrong:"Aishwarya Rajesh", trap:"Kanaa" },
+    { film:"Mr. Madras",          correct:"Prabhu",           wrong:"Karthi",           trap:"Madras" },
+    { film:"Dhillukku Dhuddu",    correct:"Santhanam",        wrong:"Vikram",           trap:"Dhil" },
+    { film:"Endrendrum Punnagai", correct:"Jiiva",            wrong:"Vijay",            trap:"Endrendrum Kaadhal" },
+    { film:"Unnai Ninaithu",      correct:"Suriya",           wrong:"Ajith",            trap:"Unnai Thedi" },
+    { film:"Sethupathi IPS",      correct:"Vijayakanth",      wrong:"Vijay Sethupathi", trap:"Sethupathi" },
+  ]
+}];
+
+const WAITS=[2,3,4,5,6,7], LETTER_MS=300, OCO_URL='https://orucupoxygen.com';
+const SUPABASE_URL='https://sispafahqsifckrnykaa.supabase.co';
+const SUPABASE_KEY='sb_publishable_uu4F6F9j-2dhLtlordq8Dw_nplV6zhH';
+
+function todayLabel(){return new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
+function todayDate(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function ssh(arr,seed){let a=[...arr],s=seed;for(let i=a.length-1;i>0;i--){s=(s*1664525+1013904223)&0xffffffff;const j=Math.abs(s)%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+function buildDeck(g){const seed=g.id.split('').reduce((s,c)=>s+c.charCodeAt(0),0);return ssh(g.films,seed).map((f,i)=>({...f,wait:ssh([...WAITS],seed+i*7)[i%WAITS.length]*1000}));}
+function calcPts(correct,early,delta){if(!correct||early)return 0;if(delta<=0)return 10;return Math.max(0,10-Math.floor(delta));}
+
+async function sbFetch(path, opts){
+  const res = await fetch(SUPABASE_URL+path, {
+    ...opts,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer '+SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts && opts.prefer ? opts.prefer : '',
+      ...(opts && opts.headers ? opts.headers : {})
+    }
+  });
+  if(!res.ok) return null;
+  try { return await res.json(); } catch(e) { return []; }
+}
+
+async function getScores(gameId){
+  try{
+    const data = await sbFetch(
+      `/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&order=score.desc&limit=50`
+    );
+    return data || [];
+  }catch(e){return[];}
+}
+
+async function saveScore(gameId, nick, score){
+  try{
+    // Check if nick already has a score today for this game
+    const existing = await sbFetch(
+      `/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&nick=eq.${encodeURIComponent(nick)}&limit=1`
+    );
+    if(existing && existing.length > 0){
+      // Only update if new score is better
+      if(score > existing[0].score){
+        await sbFetch(
+          `/rest/v1/scores?id=eq.${existing[0].id}`,
+          { method:'PATCH', body: JSON.stringify({score, ts: Date.now()}) }
+        );
+      }
+    } else {
+      // Insert new score
+      await sbFetch('/rest/v1/scores', {
+        method: 'POST',
+        prefer: 'return=minimal',
+        body: JSON.stringify({ game_id: gameId, nick, score, play_date: todayDate(), ts: Date.now() })
+      });
+    }
+    return await getScores(gameId);
+  }catch(e){return[];}}
+
+
+// ── ANALYTICS ──
+async function trackEvent(gameId, eventType){
+  // eventType: 'attempt' | 'complete'
+  try {
+    await sbFetch('/rest/v1/analytics', {
+      method: 'POST',
+      prefer: 'return=minimal',
+      body: JSON.stringify({
+        game_id: gameId,
+        event: eventType,
+        play_date: todayDate(),
+        ts: Date.now()
+      })
+    });
+  } catch(e) { /* silent fail — never block gameplay */ }
+}
+
+  if(rank===1)return{msg:`A focused mind doesn't rush. Today, yours didn't. You're #1 on PauseMark.`,sub:`That kind of attention is what Oru Cup Oxygen is built for.`};
+  if(rank<=3)return{msg:`Top 3. You paused when others clicked. You moved when it was right.`,sub:`Oru Cup Oxygen exists for minds like yours — that know the value of stillness.`};
+  if(rank<=10)return{msg:`You made today's PauseMark top 10. Not by being fast — by knowing when to wait.`,sub:`That's a focused mind. Oru Cup Oxygen is built to help you stay there.`};
+  return{msg:`The gap isn't knowledge — it's patience. One more breath, one more second.`,sub:`Oru Cup Oxygen has a whole stream built around exactly that.`};
+}
+
+let S={gi:0,nick:'',phase:'nick',deck:[],cur:0,total:0,res:[],rt:null,li:0,t0:0,tgt:0};
+
+function renderTabs(){
+  const w=document.getElementById('tabs');w.innerHTML='';
+  GAMES.forEach((g,i)=>{const b=document.createElement('button');b.className='game-tab'+(i===S.gi?' active':'');b.textContent=g.name;b.onclick=()=>{S.gi=i;S.phase='nick';S.nick='';renderAll();};w.appendChild(b);});
+}
+function renderLB(scores,hl){
+  document.getElementById('lbt').textContent=GAMES[S.gi].name+' — Today\'s Top 10';
+  document.getElementById('lbd').textContent=todayLabel();
+  const list=document.getElementById('lbl');
+  if(!scores||!scores.length){list.innerHTML='<div class="lb-empty">No scores yet today.<br>Be the first.</div>';return;}
+  list.innerHTML=scores.slice(0,10).map((s,i)=>{
+    const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+    const h=s.nick===hl?' hl':'';
+    const sym=i===0?'①':i===1?'②':i===2?'③':(i+1)+'';
+    return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;
+  }).join('');
+}
+async function refreshLB(hl){const sc=await getScores(GAMES[S.gi].id);renderLB(sc,hl||S.nick);}
+
+function renderNick(){
+  const g=GAMES[S.gi];
+  document.getElementById('gp').innerHTML=`
+    <div class="game-heading">${g.name}</div>
+    <div class="game-label">${g.label}</div>
+    <div class="rules-card">
+      <div class="rules-philosophy"><strong>PauseMark</strong> is not just a quiz.<br>Most games reward the fastest finger. This one doesn't.<br>Here, the right answer at the wrong moment is worth nothing.<br>You'll learn to hold — to wait — to act only when it's time.<br>That's the mark.</div>
+      <div class="rules-mechanics">Each round shows a question — revealed one letter at a time — and two options. Pick the right one.<br><br>Every round has a <strong>minimum wait time</strong> shown on screen. Tap before it and you score nothing, regardless of whether your answer is right.<br><br>Wait too long past it and you start losing points. The sweet spot is the point — not too early, not too late.</div>
+      <table class="rules-table">
+        <thead><tr><th>Outcome</th><th>Points</th></tr></thead>
+        <tbody>
+          <tr><td>Correct answer, within time</td><td class="pts-green">+10</td></tr>
+          <tr><td>Wrong answer</td><td class="pts-zero">0</td></tr>
+          <tr><td>Tapped before minimum wait</td><td class="pts-zero">0</td></tr>
+          <tr><td>Every second over the minimum</td><td class="pts-neg">−1 / sec</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="field-label">Your nickname</div>
+    <div class="nick-row">
+      <input class="nick-input" id="ni" type="text" maxlength="20" placeholder="Any name..."/>
+      <button class="btn-play" id="ng">Let's Play</button>
+    </div>`;
+  const inp=document.getElementById('ni');inp.focus();
+  const go=()=>{const v=inp.value.trim();if(!v){inp.focus();return;}S.nick=v;S.phase='play';S.deck=buildDeck(GAMES[S.gi]);S.cur=0;S.total=0;S.res=[];trackEvent(GAMES[S.gi].id,'attempt');renderAll();};
+  document.getElementById('ng').onclick=go;
+  inp.onkeydown=e=>{if(e.key==='Enter')go();};
+}
+
+function renderPlay(){
+  const g=GAMES[S.gi],q=S.deck[S.cur];
+  let pips='';
+  for(let i=0;i<10;i++){const r=S.res[i];let c='pip';if(i<S.cur)c+=r.early?' ep':r.right?' ok':' bad';else if(i===S.cur)c+=' active';pips+=`<div class="${c}" id="p${i}"></div>`;}
+  const opts=ssh([q.correct,q.wrong],q.film.charCodeAt(0)+S.cur*13);
+  document.getElementById('gp').innerHTML=`
+    <div class="score-row"><div class="score-total"><strong id="sv">${S.total}</strong> pts</div><div class="round-flash" id="rf" style="opacity:0"></div></div>
+    <div class="progress-line">${pips}</div>
+    <div class="goal-line">Goal : ${g.goal}</div>
+    <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>
+    <div class="trap-hint" id="th"></div>
+    <div class="wait-inst">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
+    <div class="answer-label">${g.answerLabel}</div>
+    <div class="dot-zone"><div class="dot" id="dot"></div></div>
+    <div class="choices" id="cw">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
+    <div class="feedback" id="fb"></div>`;
+  document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
+  S.li=0;S.t0=performance.now();S.tgt=q.wait;
+  if(S.rt)clearInterval(S.rt);
+  S.rt=setInterval(()=>{const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}if(S.li<=q.film.length){el.textContent=q.film.slice(0,S.li++);}else{clearInterval(S.rt);const c=document.getElementById('cb');if(c)c.style.display='none';}},LETTER_MS);
+}
+
+function onTap(name,btn){
+  const elapsed=performance.now()-S.t0,q=S.deck[S.cur];
+  const correct=name===q.correct,early=elapsed<S.tgt;
+  const delta=(elapsed-S.tgt)/1000,p=calcPts(correct,early,delta);
+  const eS=(elapsed/1000).toFixed(1),tS=Math.round(S.tgt/1000);
+  if(S.rt)clearInterval(S.rt);
+  const rt=document.getElementById('rt');if(rt)rt.textContent=q.film;
+  const cb=document.getElementById('cb');if(cb)cb.style.display='none';
+  const th=document.getElementById('th');if(th)th.textContent='trap: '+q.trap;
+  document.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true);
+  const dot=document.getElementById('dot');if(dot)dot.style.display='none';
+  S.total+=p;
+  const sv=document.getElementById('sv');if(sv)sv.textContent=S.total;
+  const rf=document.getElementById('rf');
+  if(rf){rf.textContent=p>0?'+'+p:'0';rf.style.color=p===10?'#1d9e60':p>0?'#c07820':'#c0392b';rf.style.opacity='1';setTimeout(()=>{if(rf)rf.style.opacity='0';},1200);}
+  const pip=document.getElementById('p'+S.cur);if(pip)pip.className='pip'+(early?' ep':correct?' ok':' bad');
+  btn.className='choice-btn '+(early?'early':correct?'correct':'wrong');
+  const fb=document.getElementById('fb');
+  if(early){fb.innerHTML='Too early — tapped at '+eS+'s, needed '+tS+'s. Forfeit. <strong>0 pts</strong><br><span style="font-size:11px;color:#aaa">Answer: '+q.correct+'</span>';fb.className='feedback et';}
+  else if(!correct){fb.innerHTML='Wrong — correct answer was <strong>'+q.correct+'</strong>. 0 pts';fb.className='feedback bad';}
+  else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg;fb.className='feedback good';}
+  S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
+  S.cur++;
+  if(S.cur<10){setTimeout(()=>renderPlay(),2000);}
+  else{trackEvent(GAMES[S.gi].id,'complete');setTimeout(()=>finishGame(),2000);}
+}
+
+async function finishGame(){
+  const sc=await saveScore(GAMES[S.gi].id,S.nick,S.total);
+  renderLB(sc,S.nick);S.phase='result';renderResult(sc);
+}
+
+function renderResult(sc){
+  const rank=sc?sc.findIndex(s=>s.nick===S.nick)+1:0;
+  const correct=S.res.filter(r=>r.right).length,early=S.res.filter(r=>r.early).length;
+  const inTop10=rank>=1&&rank<=10;
+  const{msg,sub}=getRankMessage(rank);
+  const rows=S.res.map(r=>{
+    const tS=Math.round(r.target/1000),eS=(r.elapsed/1000).toFixed(1);
+    const pc=r.p===10?'#1d9e60':r.p>0?'#c07820':'#c0392b';
+    const st=r.early?`<span style="color:#c07820">early</span>`:r.right?`<span style="color:#1d9e60">✓</span>`:`<span style="color:#c0392b">✗</span>`;
+    return`<tr><td>${r.film}</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${tS}s</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${eS}s</td><td style="font-family:'DM Mono',monospace;color:${pc};font-weight:600">${r.p}</td><td>${st}</td></tr>`;
+  }).join('');
+  document.getElementById('gp').innerHTML=`
+    <div class="result-big">${S.total}</div>
+    <div class="result-sub">out of 100 &nbsp;·&nbsp; ${correct} correct &nbsp;·&nbsp; ${early} forfeit</div>
+    ${inTop10?`<div class="result-rank-num">#${rank} today</div>`:''}
+    <div class="result-msg-card"><div class="result-msg-text">${msg}<br><br>${sub}</div><a class="result-msg-link" href="${OCO_URL}" target="_blank">orucupoxygen.com →</a></div>
+    <div class="res-table"><table><thead><tr><th>Question</th><th>Target</th><th>Tapped</th><th>Pts</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <button class="btn-ghost" id="pa">Play again</button>`;
+  document.getElementById('pa').onclick=()=>{S.phase='nick';renderAll();};
+}
+
+async function renderAll(){
+  renderTabs();await refreshLB(S.nick);
+  if(S.phase==='nick')renderNick();
+  else if(S.phase==='play')renderPlay();
+  else if(S.phase==='result'){const sc=await getScores(GAMES[S.gi].id);renderResult(sc);}
+}
+renderAll();
+</script>
+</body>
+</html>
