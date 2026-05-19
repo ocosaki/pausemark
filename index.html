@@ -26,9 +26,9 @@
     html, body { min-height: 100vh; background: var(--ink); font-family: 'DM Sans', sans-serif; color: var(--cream); }
     #app { max-width: 960px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--ink); }
 
-    .logo-strip { background: var(--ink); border-bottom: 1px solid var(--ink-3); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 110px; flex-shrink: 0; }
+    .logo-strip { background: var(--ink); border-bottom: 1px solid var(--ink-3); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 140px; flex-shrink: 0; }
     .logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .logo-img { height: 95px; width: auto; object-fit: contain; }
+    .logo-img { height: 125px; width: auto; object-fit: contain; }
     .logo-fallback { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
     .tab-area { display: flex; align-items: center; gap: 0.75rem; overflow-x: auto; }
     .tab-label { font-size: 11px; letter-spacing: 0.12em; color: var(--muted-2); white-space: nowrap; text-transform: uppercase; }
@@ -174,12 +174,14 @@
     @media (max-width: 640px) {
       .main-layout { grid-template-columns: 1fr; }
       .lb-panel { border-left: none; border-top: 1px solid var(--ink-3); }
-      .logo-strip { padding: 0 1rem; height: 72px; }
-      .logo-img { height: 56px; }
+      .logo-strip { padding: 0 1rem; height: 110px; }
+      .logo-img { height: 90px; }
       .game-panel { padding: 1.25rem; }
       .title-text { font-size: 20px; }
       .result-big { font-size: 54px; }
       .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .nick-row { flex-direction: column; }
+      .btn-play { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -473,8 +475,13 @@ async function renderAll(){
   else if(S.phase==='play')renderPlay();
   else if(S.phase==='result'){const sc=await getScores(GAMES[S.gi].id);renderResult(sc);}
 }
-renderAll();
-window.scrollTo(0, 0);
+renderAll().then(() => {
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
+});
 </script>
 </body>
 </html>
