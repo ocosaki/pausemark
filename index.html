@@ -423,7 +423,7 @@ function renderLB(scores, allTime, hl){
     atList.innerHTML=allTime.slice(0,3).map((s,i)=>{
       const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
       const h=s.nick===hl?' hl':'';
-      const sym=i===0?'①':i===1?'②':i===2?'③';
+      const sym=i===0?'#1':i===1?'#2':i===2?'#3':'';
       return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;
     }).join('');
   }
