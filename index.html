@@ -217,6 +217,8 @@
   <div class="main-layout">
     <div class="game-panel" id="gp"></div>
     <div class="lb-panel">
+      <div class="lb-title" id="lbt-alltime">All Time Top 3</div>
+      <div id="lbl-alltime" style="margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--ink-3)"></div>
       <div class="lb-title" id="lbt">Today's Top 10</div>
       <div class="lb-date" id="lbd"></div>
       <div id="lbl"></div>
@@ -348,6 +350,15 @@ async function getScores(gameId){
   }catch(e){return[];}
 }
 
+async function getAllTimeScores(gameId){
+  try{
+    const data = await sbFetch(
+      `/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&order=score.desc&limit=3`
+    );
+    return data || [];
+  }catch(e){return[];}
+}
+
 async function saveScore(gameId, nick, score){
   try{
     // Upsert — insert or update if score is better
@@ -403,7 +414,20 @@ function renderTabs(){
   const w=document.getElementById('tabs');w.innerHTML='';
   GAMES.forEach((g,i)=>{const b=document.createElement('button');b.className='game-tab'+(i===S.gi?' active':'');b.textContent=g.name;b.onclick=()=>{S.gi=i;S.phase='nick';S.nick='';renderAll();};w.appendChild(b);});
 }
-function renderLB(scores,hl){
+function renderLB(scores, allTime, hl){
+  // All time top 3
+  document.getElementById('lbt-alltime').textContent=GAMES[S.gi].name+' — All Time Top 3';
+  const atList=document.getElementById('lbl-alltime');
+  if(!allTime||!allTime.length){atList.innerHTML='<div class="lb-empty">No scores yet.</div>';}
+  else{
+    atList.innerHTML=allTime.slice(0,3).map((s,i)=>{
+      const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+      const h=s.nick===hl?' hl':'';
+      const sym=i===0?'①':i===1?'②':i===2?'③';
+      return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;
+    }).join('');
+  }
+  // Today's top 10
   document.getElementById('lbt').textContent=GAMES[S.gi].name+' — Today\'s Top 10';
   document.getElementById('lbd').textContent=todayLabel();
   const list=document.getElementById('lbl');
@@ -415,7 +439,10 @@ function renderLB(scores,hl){
     return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;
   }).join('');
 }
-async function refreshLB(hl){const sc=await getScores(GAMES[S.gi].id);renderLB(sc,hl||S.nick);}
+async function refreshLB(hl){
+  const [sc, at] = await Promise.all([getScores(GAMES[S.gi].id), getAllTimeScores(GAMES[S.gi].id)]);
+  renderLB(sc, at, hl||S.nick);
+}
 
 function renderNick(){
   const g=GAMES[S.gi];
@@ -496,8 +523,9 @@ function onTap(name,btn){
 }
 
 async function finishGame(){
-  const sc=await saveScore(GAMES[S.gi].id,S.nick,S.total);
-  renderLB(sc,S.nick);S.phase='result';renderResult(sc);
+  const [sc, at] = await Promise.all([saveScore(GAMES[S.gi].id,S.nick,S.total), getAllTimeScores(GAMES[S.gi].id)]);
+  renderLB(sc, at, S.nick);
+  S.phase='result';renderResult(sc);
 }
 
 function renderResult(sc){
