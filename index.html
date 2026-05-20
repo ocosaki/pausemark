@@ -292,6 +292,25 @@ const GAMES = [{
     { film:"Mounam Sammadham", correct:"Ilaiyaraaja",        wrong:"Yuvan Shankar Raja", trap:"Mounam Pesiyathey was Yuvan" },
     { film:"Puthiya Paravai",  correct:"MSV",                wrong:"A.R. Rahman",      trap:"Puthiya sounds new-gen" },
   ]
+},
+{
+  id: 'game-003',
+  name: 'Identify the Brand',
+  label: 'Brands — Pick the correct brand for the category',
+  goal: 'Identify the correct brand',
+  answerLabel: 'WHICH BRAND?',
+  films: [
+    { film:"First Indian car brand",                              correct:"Hindustan Motors", wrong:"Maruti",        trap:"Maruti feels more familiar" },
+    { film:"Hotstar is owned by",                                 correct:"Disney",           wrong:"Netflix",       trap:"Netflix is the bigger streaming name" },
+    { film:"Electronics brand that's South Korean, not Japanese", correct:"Samsung",          wrong:"Sony",          trap:"Sony feels equally Asian" },
+    { film:"Shoe brand that's actually Czech, not Indian",        correct:"Bata",             wrong:"Liberty",       trap:"Bata feels completely Indian" },
+    { film:"Energy drink that invented the category",             correct:"Red Bull",         wrong:"Monster",       trap:"Monster feels more original" },
+    { film:"Toothpaste brand owned by a British company",         correct:"Sensodyne",        wrong:"Colgate",       trap:"Colgate feels more international" },
+    { film:"Motorcycle brand born in Chennai",                    correct:"TVS",              wrong:"Royal Enfield", trap:"Royal Enfield is made in Chennai" },
+    { film:"Luxury brand owned by TATA",                          correct:"Jaguar",           wrong:"Rolls Royce",   trap:"Rolls Royce feels equally British premium" },
+    { film:"Instagram is owned by",                               correct:"Meta",             wrong:"Google",        trap:"Google owns so many apps" },
+    { film:"Bank that's actually British, not Indian",            correct:"HSBC",             wrong:"HDFC",          trap:"HSBC sounds similar to HDFC" },
+  ]
 }];
 
 const LETTER_MS=300, OCO_URL='https://orucupoxygen.com';
@@ -516,6 +535,14 @@ async function renderAll(){
   else if(S.phase==='play')renderPlay();
   else if(S.phase==='result'){const sc=await getScores(GAMES[S.gi].id);renderResult(sc);}
 }
+// Read URL param and set active game
+const urlParams = new URLSearchParams(window.location.search);
+const gameParam = urlParams.get('game');
+if(gameParam){
+  const idx = GAMES.findIndex(g => g.id === gameParam);
+  if(idx >= 0) S.gi = idx;
+}
+
 renderAll().then(() => {
   requestAnimationFrame(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
