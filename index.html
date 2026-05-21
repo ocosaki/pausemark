@@ -491,7 +491,12 @@ function renderNick(){
       <button class="btn-play" id="ng">Let's Play</button>
     </div>`;
   const inp=document.getElementById('ni');inp.focus();
-  const go=()=>{const v=inp.value.trim();if(!v){inp.focus();return;}S.nick=v;S.phase='play';S.deck=buildDeck(GAMES[S.gi]);S.cur=0;S.total=0;S.res=[];trackEvent(GAMES[S.gi].id,'attempt');renderAll();};
+  const go=()=>{
+    const v=inp.value.trim();if(!v){inp.focus();return;}
+    S.nick=v;S.phase='play';S.deck=buildDeck(GAMES[S.gi]);S.cur=0;S.total=0;S.res=[];
+    trackEvent(GAMES[S.gi].id,'attempt');
+    renderAll().then(()=>{ window.scrollTo({top:0,left:0,behavior:'instant'}); document.documentElement.scrollTop=0; document.body.scrollTop=0; });
+  };
   document.getElementById('ng').onclick=go;
   inp.onkeydown=e=>{if(e.key==='Enter')go();};
 }
@@ -541,7 +546,7 @@ function onTap(name,btn){
   else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg;fb.className='feedback good';}
   S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
   S.cur++;
-  if(S.cur<10){setTimeout(()=>renderPlay(),2000);}
+  if(S.cur<10){setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},2000);}
   else{trackEvent(GAMES[S.gi].id,'complete');setTimeout(()=>finishGame(),2000);}
 }
 
