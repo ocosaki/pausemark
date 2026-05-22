@@ -530,13 +530,15 @@ function renderPlay(){
     } else {
       clearInterval(S.rt);
       const c=document.getElementById('cb');if(c)c.style.display='none';
-      // Title fully revealed — now start the wait timer
       const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
       const sc=document.getElementById('sc');
       const dot=document.getElementById('dot');
-      if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
-      if(dot){dot.style.opacity='1';dot.style.animation='secondbeat 1s steps(1) infinite';}
-      S.t0=performance.now();
+      // Small delay to ensure DOM updates before timer starts
+      setTimeout(()=>{
+        if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
+        if(dot){dot.style.opacity='1';dot.style.animation='secondbeat 1s steps(1) infinite';}
+        S.t0=performance.now();
+      }, 50);
     }
   },g.letterMs);
 }
