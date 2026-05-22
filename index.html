@@ -432,7 +432,7 @@ function getRankMessage(rank){
   return{msg:`The gap isn't knowledge — it's patience. One more breath, one more second.`,sub:`Oru Cup Oxygen has a whole stream built around exactly that.`};
 }
 
-let S={gi:0,nick:'',phase:'nick',deck:[],cur:0,total:0,res:[],rt:null,li:0,t0:0,tgt:0};
+let S={gi:0,nick:'',phase:'nick',deck:[],cur:0,total:0,res:[],rt:null,li:0,t0:0,tgt:0,dotTimer:null};
 
 function renderTabs(){
   const w=document.getElementById('tabs');w.innerHTML='';
@@ -533,12 +533,29 @@ function renderPlay(){
       const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
       const sc=document.getElementById('sc');
       const dot=document.getElementById('dot');
-      // Small delay to ensure DOM updates before timer starts
-      setTimeout(()=>{
-        if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
-        if(dot){dot.style.opacity='1';dot.style.animation='secondbeat 1s steps(1) infinite';}
-        S.t0=performance.now();
-      }, 50);
+      if(sc){sc.style.opacity='1';setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
+      // Start timer and dot blink together in perfect sync
+      S.t0=performance.now();
+      if(dot){
+        dot.style.opacity='1';
+        dot.style.animation='none';
+        dot.style.background='#c9a84c';
+        dot.style.transform='scale(1.5)';
+        S.dotTimer=setInterval(()=>{
+          const d=document.getElementById('dot');
+          if(!d){clearInterval(S.dotTimer);return;}
+          d.style.background='#c9a84c';
+          d.style.transform='scale(1.5)';
+          setTimeout(()=>{
+            const d2=document.getElementById('dot');
+            if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}
+          },200);
+        },1000);
+        setTimeout(()=>{
+          const d=document.getElementById('dot');
+          if(d){d.style.background='#bbb';d.style.transform='scale(1)';}
+        },200);
+      }
     }
   },g.letterMs);
 }
@@ -549,7 +566,7 @@ function onTap(name,btn){
   const delta=(elapsed-S.tgt)/1000,p=calcPts(correct,early,delta);
   const eS=(elapsed/1000).toFixed(1),tS=Math.round(S.tgt/1000);
   if(S.rt)clearInterval(S.rt);
-  const rt=document.getElementById('rt');if(rt)rt.textContent=q.film;
+  if(S.dotTimer){clearInterval(S.dotTimer);S.dotTimer=null;}
   const cb=document.getElementById('cb');if(cb)cb.style.display='none';
   const th=document.getElementById('th');if(th)th.textContent='trap: '+q.trap;
   const sc=document.getElementById('sc');if(sc)sc.style.opacity='0';
