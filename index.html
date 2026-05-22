@@ -98,8 +98,9 @@
     .wait-num { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: var(--ink-2); margin: 0 4px; }
     .answer-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 700; text-align: center; margin-bottom: 0.75rem; }
     .dot-zone { height: 28px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #bbb; animation: pulse 1.6s ease-in-out infinite; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; background: #bbb; animation: pulse 1.6s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:0.25;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+    @keyframes secondbeat { 0%{opacity:1;transform:scale(1.5);background:#c9a84c} 20%{opacity:1;transform:scale(1.5);background:#c9a84c} 21%{opacity:0.2;transform:scale(1);background:#bbb} 100%{opacity:0.2;transform:scale(1);background:#bbb} }
 
     .choices { display: flex; gap: 12px; justify-content: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
     .choice-btn { min-width: 148px; padding: 14px 20px; background: #fff; border: 1.5px solid #c8c0b0; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
@@ -534,7 +535,7 @@ function renderPlay(){
       const sc=document.getElementById('sc');
       const dot=document.getElementById('dot');
       if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
-      if(dot){dot.style.opacity='1';dot.style.animation='pulse 1.6s ease-in-out infinite';}
+      if(dot){dot.style.opacity='1';dot.style.animation='secondbeat 1s steps(1) infinite';}
       S.t0=performance.now();
     }
   },g.letterMs);
