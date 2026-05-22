@@ -513,7 +513,7 @@ function renderPlay(){
     <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>
     <div class="trap-hint" id="th"></div>
     <div class="wait-inst" id="wi" style="opacity:0">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
-    <div style="text-align:center;font-size:12px;color:var(--gold);font-weight:600;letter-spacing:0.1em;min-height:20px;margin-bottom:0.5rem;opacity:0;transition:opacity 0.4s" id="sc">NOW — START COUNTING</div>
+    <div style="text-align:center;font-size:14px;color:#fff;font-weight:700;letter-spacing:0.12em;min-height:24px;margin-bottom:0.75rem;opacity:0;transition:opacity 0.5s;background:var(--gold);padding:6px 16px;border-radius:20px;display:inline-block;width:auto;margin-left:auto;margin-right:auto;" id="sc">⏱ NOW — START COUNTING</div>
     <div class="answer-label">${g.answerLabel}</div>
     <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
     <div class="choices" id="cw">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
@@ -533,7 +533,7 @@ function renderPlay(){
       const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
       const sc=document.getElementById('sc');
       const dot=document.getElementById('dot');
-      if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},1200);}
+      if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
       if(dot){dot.style.opacity='1';dot.style.animation='pulse 1.6s ease-in-out infinite';}
       S.t0=performance.now();
     }
@@ -549,6 +549,7 @@ function onTap(name,btn){
   const rt=document.getElementById('rt');if(rt)rt.textContent=q.film;
   const cb=document.getElementById('cb');if(cb)cb.style.display='none';
   const th=document.getElementById('th');if(th)th.textContent='trap: '+q.trap;
+  const sc=document.getElementById('sc');if(sc)sc.style.opacity='0';
   document.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true);
   const dot=document.getElementById('dot');if(dot)dot.style.display='none';
   S.total+=p;
