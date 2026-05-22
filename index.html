@@ -512,15 +512,32 @@ function renderPlay(){
     <div class="goal-line">Goal : ${g.goal}</div>
     <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>
     <div class="trap-hint" id="th"></div>
-    <div class="wait-inst">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
+    <div class="wait-inst" id="wi" style="opacity:0">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
+    <div style="text-align:center;font-size:12px;color:var(--gold);font-weight:600;letter-spacing:0.1em;min-height:20px;margin-bottom:0.5rem;opacity:0;transition:opacity 0.4s" id="sc">NOW — START COUNTING</div>
     <div class="answer-label">${g.answerLabel}</div>
-    <div class="dot-zone"><div class="dot" id="dot"></div></div>
+    <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
     <div class="choices" id="cw">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
   document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
-  S.li=0;S.t0=performance.now();S.tgt=q.wait;
+  // Reveal title first — timer starts AFTER full reveal
+  S.li=0; S.t0=0; S.tgt=q.wait;
   if(S.rt)clearInterval(S.rt);
-  S.rt=setInterval(()=>{const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}if(S.li<=q.film.length){el.textContent=q.film.slice(0,S.li++);}else{clearInterval(S.rt);const c=document.getElementById('cb');if(c)c.style.display='none';}},g.letterMs);
+  S.rt=setInterval(()=>{
+    const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}
+    if(S.li<=q.film.length){
+      el.textContent=q.film.slice(0,S.li++);
+    } else {
+      clearInterval(S.rt);
+      const c=document.getElementById('cb');if(c)c.style.display='none';
+      // Title fully revealed — now start the wait timer
+      const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
+      const sc=document.getElementById('sc');
+      const dot=document.getElementById('dot');
+      if(sc){sc.style.opacity='1'; setTimeout(()=>{if(sc)sc.style.opacity='0';},1200);}
+      if(dot){dot.style.opacity='1';dot.style.animation='pulse 1.6s ease-in-out infinite';}
+      S.t0=performance.now();
+    }
+  },g.letterMs);
 }
 
 function onTap(name,btn){
