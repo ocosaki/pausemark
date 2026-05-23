@@ -335,6 +335,7 @@ const GAME_COLORS = [
   { bg:'#1f2a0d', border:'#3a5a1a', accent:'#a0c070' }, // Game 4 — olive
   { bg:'#1f0d2a', border:'#3f1a5a', accent:'#b070d0' }, // Game 5 — plum
 ];
+const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
 const SUPABASE_URL='https://sispafahqsifckrnykaa.supabase.co';
 const SUPABASE_KEY='sb_publishable_uu4F6F9j-2dhLtlordq8Dw_nplV6zhH';
@@ -465,7 +466,7 @@ function renderNick(){
       <input class="nick-input" id="ni" type="text" maxlength="20" placeholder="Any name..."/>
       <button class="btn-play" id="ng">Let's Play</button>
     </div>`;
-  const inp=document.getElementById('ni');inp.focus();
+  const inp=document.getElementById('ni');
   const go=()=>{
     const v=inp.value.trim();if(!v){inp.focus();return;}
     S.nick=v;S.phase='play';S.deck=buildDeck(GAMES[S.gi]);S.cur=0;S.total=0;S.res=[];
@@ -475,6 +476,7 @@ function renderNick(){
   };
   document.getElementById('ng').onclick=go;
   inp.onkeydown=e=>{if(e.key==='Enter')go();};
+  inp.focus();
 }
 
 function renderPlay(){
