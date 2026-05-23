@@ -613,9 +613,17 @@ if(gameParam){
   renderLobby();
 }
 
-window.scrollTo({top:0,left:0,behavior:'instant'});
-document.documentElement.scrollTop=0;
-document.body.scrollTop=0;
+// Force scroll to top after render — delayed to ensure DOM is fully painted on mobile
+setTimeout(()=>{
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+  document.documentElement.scrollTop=0;
+  document.body.scrollTop=0;
+},100);
+requestAnimationFrame(()=>{
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+  document.documentElement.scrollTop=0;
+  document.body.scrollTop=0;
+});
 </script>
 </body>
 </html>
