@@ -26,16 +26,30 @@
     html, body { min-height: 100vh; background: var(--ink); font-family: 'DM Sans', sans-serif; color: var(--cream); }
     #app { max-width: 960px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--ink); }
 
+    /* LOGO STRIP */
     .logo-strip { background: var(--ink); border-bottom: 1px solid var(--ink-3); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
     .logo-img { height: auto; width: 220px; object-fit: contain; display: block; }
     .logo-fallback { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
-    .tab-area { display: flex; align-items: center; gap: 0.75rem; overflow-x: auto; }
-    .tab-label { font-size: 11px; letter-spacing: 0.12em; color: var(--muted-2); white-space: nowrap; text-transform: uppercase; }
-    .game-tab { background: none; border: 1px solid var(--ink-4); border-radius: 6px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 6px 14px; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
-    .game-tab:hover { border-color: var(--gold); color: var(--cream); }
-    .game-tab.active { border-color: var(--gold); color: var(--cream); background: #1e1a10; }
+    .strip-right { display: flex; align-items: center; gap: 1rem; }
+    .btn-all-games { background: none; border: 1px solid var(--ink-4); border-radius: 6px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 6px 14px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .btn-all-games:hover { border-color: var(--gold); color: var(--cream); }
 
+    /* LOBBY */
+    .lobby { padding: 2rem; flex: 1; }
+    .lobby-intro { margin-bottom: 2rem; }
+    .lobby-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--text-light); line-height: 1.9; font-style: italic; margin-bottom: 0.5rem; }
+    .lobby-title strong { font-style: normal; color: var(--gold); }
+    .lobby-subtitle { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 1.5rem; }
+    .lobby-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .lobby-card { background: var(--ink-2); border: 1px solid var(--ink-3); border-radius: 12px; padding: 1.25rem; cursor: pointer; transition: all 0.2s; text-decoration: none; display: flex; flex-direction: column; }
+    .lobby-card:hover { border-color: var(--gold); background: #1e1a10; transform: translateY(-2px); }
+    .lobby-card-num { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 0.4rem; }
+    .lobby-card-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--cream); margin-bottom: 0.3rem; }
+    .lobby-card-label { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 1rem; flex: 1; }
+    .lobby-card-play { display: inline-block; font-size: 12px; color: var(--gold); font-weight: 600; letter-spacing: 0.05em; }
+
+    /* MAIN LAYOUT */
     .main-layout { display: grid; grid-template-columns: 1fr 240px; flex: 1; }
     .game-panel { padding: 2rem; background: var(--cream); color: var(--ink-2); overflow-y: auto; min-height: 600px; }
     .lb-panel { background: #0d0c0a; padding: 1.5rem 1.25rem; border-left: 1px solid var(--ink-3); overflow-y: auto; }
@@ -51,6 +65,7 @@
     .lb-row.hl .lb-name { color: var(--cream); }
     .lb-empty { font-size: 12px; color: var(--muted-3); text-align: center; padding: 2rem 0; line-height: 1.9; }
 
+    /* RULES */
     .rules-card { background: var(--ink-2); border-radius: 12px; padding: 1.75rem; margin-bottom: 2rem; border-left: 3px solid var(--gold); }
     .rules-philosophy { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--cream); line-height: 1.9; margin-bottom: 1.5rem; font-style: italic; }
     .rules-philosophy strong { font-style: normal; color: var(--gold); }
@@ -64,8 +79,11 @@
     .pts-zero  { font-family: 'DM Mono', monospace; color: var(--muted-2); }
     .pts-neg   { font-family: 'DM Mono', monospace; color: var(--amber); font-weight: 600; }
 
+    /* GAME NICK */
     .game-heading { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink-2); margin-bottom: 0.4rem; }
     .game-label { font-size: 15px; color: var(--ink-2); font-weight: 500; margin-bottom: 1.75rem; line-height: 1.5; border-left: 3px solid var(--gold); padding-left: 0.75rem; }
+    .back-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); text-decoration: none; margin-bottom: 1.25rem; cursor: pointer; background: none; border: none; padding: 0; transition: color 0.15s; }
+    .back-link:hover { color: var(--gold); }
     .field-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
     .nick-row { display: flex; gap: 10px; align-items: stretch; }
     .nick-input { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 11px 14px; flex: 1; outline: none; transition: border-color 0.15s; }
@@ -76,6 +94,7 @@
     .btn-ghost { background: #fff; border: 1.5px solid #ccc; border-radius: 8px; color: #555; font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 24px; cursor: pointer; transition: all 0.15s; display: block; margin: 0 auto; }
     .btn-ghost:hover { border-color: var(--gold); color: var(--gold-dark); }
 
+    /* PLAY */
     .score-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
     .score-total { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); }
     .score-total strong { font-size: 22px; color: var(--ink-2); margin-right: 2px; }
@@ -86,7 +105,6 @@
     .pip.ok     { background: var(--green); border-color: var(--green); }
     .pip.bad    { background: var(--red);   border-color: var(--red); }
     .pip.ep     { background: var(--amber); border-color: var(--amber); }
-
     .goal-line { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 1.25rem; font-weight: 600; }
     .title-wrap { background: var(--ink-2); border-radius: 10px; padding: 1.25rem 1rem; margin-bottom: 0.5rem; }
     .title-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 0.6rem; }
@@ -94,14 +112,13 @@
     .cur { display: inline-block; width: 2px; height: 26px; background: var(--gold); margin-left: 3px; vertical-align: middle; animation: blink 0.8s step-end infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     .trap-hint { font-size: 11px; color: #aaa; text-align: center; min-height: 18px; margin: 0.5rem 0 0.75rem; letter-spacing: 0.03em; }
-    .wait-inst { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 1rem; }
+    .wait-inst { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 1rem; opacity: 0; transition: opacity 0.3s; }
     .wait-num { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: var(--ink-2); margin: 0 4px; }
     .answer-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 700; text-align: center; margin-bottom: 0.75rem; }
     .dot-zone { height: 28px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
-    .dot { width: 14px; height: 14px; border-radius: 50%; background: #bbb; animation: pulse 1.6s ease-in-out infinite; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; background: #bbb; }
     @keyframes pulse { 0%,100%{opacity:0.25;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
     @keyframes secondbeat { 0%{opacity:1;transform:scale(1.5);background:#c9a84c} 20%{opacity:1;transform:scale(1.5);background:#c9a84c} 21%{opacity:0.2;transform:scale(1);background:#bbb} 100%{opacity:0.2;transform:scale(1);background:#bbb} }
-
     .choices { display: flex; gap: 12px; justify-content: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
     .choice-btn { min-width: 148px; padding: 14px 20px; background: #fff; border: 1.5px solid #c8c0b0; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
     .choice-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-dark); background: #fffdf5; }
@@ -110,10 +127,10 @@
     .choice-btn.wrong   { border-color: var(--red);   background: var(--red-bg);   color: var(--red); }
     .choice-btn.early   { border-color: var(--amber); background: var(--amber-bg); color: var(--amber); animation: shake 0.3s ease; }
     @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-
     .feedback { text-align: center; font-size: 13px; min-height: 40px; line-height: 1.7; color: var(--muted); }
     .feedback.good { color: var(--green); } .feedback.bad { color: var(--red); } .feedback.et { color: var(--amber); }
 
+    /* RESULT */
     .result-big { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700; color: var(--ink-2); line-height: 1; text-align: center; margin-bottom: 0.25rem; }
     .result-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 1rem; }
     .result-rank-num { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold-dark); text-align: center; margin-bottom: 1rem; }
@@ -122,66 +139,43 @@
     .result-msg-link { display: inline-block; font-size: 12px; color: var(--gold); font-weight: 500; letter-spacing: 0.04em; text-decoration: none; border-bottom: 1px solid var(--gold-dark); padding-bottom: 1px; }
     .result-msg-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
 
+    /* OTHER GAMES */
+    .other-games { margin-bottom: 1.5rem; }
+    .other-games-title { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; font-weight: 600; }
+    .other-games-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .other-game-card { background: var(--ink-2); border: 1px solid var(--ink-3); border-radius: 8px; padding: 0.75rem 1rem; text-decoration: none; transition: all 0.15s; display: block; }
+    .other-game-card:hover { border-color: var(--gold); background: #1e1a10; }
+    .other-game-card-name { font-size: 13px; color: var(--cream); font-weight: 500; margin-bottom: 0.2rem; }
+    .other-game-card-label { font-size: 11px; color: var(--muted-2); }
+
+    /* RESULTS TABLE */
     .res-table { border: 1.5px solid #d5cfc5; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; background: #fff; }
     .res-table table { width: 100%; border-collapse: collapse; }
     .res-table th { text-align: left; font-size: 11px; color: var(--muted); padding: 7px 10px; font-weight: 500; background: var(--cream-2); border-bottom: 1px solid #d5cfc5; letter-spacing: 0.04em; }
     .res-table td { font-size: 12px; padding: 7px 10px; border-bottom: 1px solid var(--cream-3); color: #3a3530; }
     .res-table tr:last-child td { border-bottom: none; }
 
-    /* WHATSAPP SHARE */
-    .share-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      background: #25D366; border: none; border-radius: 8px;
-      color: #fff; font-family: 'DM Sans', sans-serif;
-      font-size: 15px; font-weight: 600;
-      padding: 13px 24px; cursor: pointer;
-      width: 100%; margin-bottom: 1rem;
-      text-decoration: none; transition: background 0.15s;
-      letter-spacing: 0.02em;
-    }
+    /* WHATSAPP */
+    .share-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: #25D366; border: none; border-radius: 8px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; padding: 13px 24px; cursor: pointer; width: 100%; margin-bottom: 1rem; text-decoration: none; transition: background 0.15s; letter-spacing: 0.02em; }
     .share-btn:hover { background: #1fba58; }
     .share-btn svg { flex-shrink: 0; }
 
     /* APP BUTTONS */
     .app-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--ink-3); }
     .app-section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-3); margin-bottom: 0.75rem; }
-    .app-btn {
-      display: flex; align-items: center; gap: 10px;
-      background: #1a1a16; border: 1px solid var(--ink-4);
-      border-radius: 8px; padding: 10px 12px;
-      text-decoration: none; transition: all 0.15s;
-      margin-bottom: 8px;
-    }
+    .app-btn { display: flex; align-items: center; gap: 10px; background: #1a1a16; border: 1px solid var(--ink-4); border-radius: 8px; padding: 10px 12px; text-decoration: none; transition: all 0.15s; margin-bottom: 8px; }
     .app-btn:hover { border-color: var(--gold); background: #1e1a10; }
     .app-btn-icon { font-size: 20px; flex-shrink: 0; }
     .app-btn-text { flex: 1; }
     .app-btn-sub { font-size: 9px; color: var(--muted-3); letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 1px; }
     .app-btn-name { font-size: 13px; color: var(--cream); font-weight: 500; display: block; }
-
-    /* OCO HOMEPAGE LINK */
-    .oco-link {
-      display: block; margin-top: 1.25rem;
-      text-align: center; font-size: 11px;
-      color: var(--muted-2); text-decoration: none;
-      letter-spacing: 0.04em; transition: color 0.15s;
-      padding-top: 1rem; border-top: 1px solid var(--ink-3);
-    }
+    .oco-link { display: block; margin-top: 1.25rem; text-align: center; font-size: 11px; color: var(--muted-2); text-decoration: none; letter-spacing: 0.04em; transition: color 0.15s; padding-top: 1rem; border-top: 1px solid var(--ink-3); }
     .oco-link:hover { color: var(--gold); }
     .oco-link span { color: var(--gold); }
 
     /* FOOTER */
-    .page-footer {
-      background: var(--ink);
-      border-top: 1px solid var(--ink-3);
-      padding: 1.25rem 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-shrink: 0;
-    }
-    .footer-oco {
-      font-size: 12px; color: var(--muted-2);
-      text-decoration: none; transition: color 0.15s;
-      letter-spacing: 0.03em;
-    }
+    .page-footer { background: var(--ink); border-top: 1px solid var(--ink-3); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .footer-oco { font-size: 12px; color: var(--muted-2); text-decoration: none; transition: color 0.15s; letter-spacing: 0.03em; }
     .footer-oco:hover { color: var(--gold); }
     .footer-oco strong { color: var(--gold); font-weight: 500; }
     .footer-copy { font-size: 11px; color: var(--muted-3); }
@@ -197,6 +191,8 @@
       .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
       .nick-row { flex-direction: column; }
       .btn-play { width: 100%; text-align: center; }
+      .lobby-grid { grid-template-columns: 1fr; }
+      .other-games-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -210,220 +206,139 @@
         onerror="this.style.display='none';document.getElementById('lf').style.display='block'"/>
       <span id="lf" style="display:none" class="logo-fallback">PauseMark</span>
     </a>
-    <div class="tab-area">
-      <span class="tab-label">Games</span>
-      <div id="tabs"></div>
+    <div class="strip-right">
+      <button class="btn-all-games" id="btn-lobby">All Games</button>
     </div>
   </div>
-  <div class="main-layout">
-    <div class="game-panel" id="gp"></div>
-    <div class="lb-panel">
-      <div class="lb-title" id="lbt-alltime">All Time Top 3</div>
-      <div id="lbl-alltime" style="margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--ink-3)"></div>
-      <div class="lb-title" id="lbt">Today's Top 10</div>
-      <div class="lb-date" id="lbd"></div>
-      <div id="lbl"></div>
-      <div class="app-section">
-        <div class="app-section-label">Get the app</div>
-        <a class="app-btn" href="https://apps.apple.com/app/id6758971206" target="_blank">
-          <span class="app-btn-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--cream)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          </span>
-          <span class="app-btn-text">
-            <span class="app-btn-sub">Download on the</span>
-            <span class="app-btn-name">App Store</span>
-          </span>
-        </a>
-        <a class="app-btn" href="https://play.google.com/store/apps/details?id=com.orucupoxygen.app" target="_blank">
-          <span class="app-btn-icon">
-            <svg width="20" height="20" viewBox="0 0 512 512" fill="var(--cream)"><path d="M48 59.49v393a4.33 4.33 0 007.37 3.07L274 256 55.37 56.42A4.33 4.33 0 0048 59.49zM345.8 174L89.22 32.64l-.16-.09c-4.42-2.4-8.62 3.58-5 7.06L307 256 345.8 174zM84.08 472.39c-3.64 3.48.56 9.46 5 7.06l.16-.09L345.8 338 307 256 84.08 472.39zM464 256c0-11.4-6.29-22.86-18.88-29.49l-71.36-39L330 256l43.76 68.49 71.36-39C457.71 278.86 464 267.4 464 256z"/></svg>
-          </span>
-          <span class="app-btn-text">
-            <span class="app-btn-sub">Get it on</span>
-            <span class="app-btn-name">Google Play</span>
-          </span>
-        </a>
-        <a class="oco-link" href="https://orucupoxygen.com" target="_blank">
-          Visit <span>orucupoxygen.com</span>
-        </a>
-      </div>
-    </div>
-  </div>
+
+  <div id="main-content"></div>
+
   <div class="page-footer">
-    <a class="footer-oco" href="https://orucupoxygen.com" target="_blank">
-      A game by <strong>Oru Cup Oxygen</strong>
-    </a>
+    <a class="footer-oco" href="https://orucupoxygen.com" target="_blank">A game by <strong>Oru Cup Oxygen</strong></a>
     <span class="footer-copy">pausemark.orucupoxygen.com</span>
   </div>
 </div>
 
 <script>
-const GAMES = [{
-  id: 'game-001',
-  name: 'Identify the Lead Actor',
-  letterMs: 300,
-  label: 'Tamil Cinema — Choose the right lead (Hero/Heroine) of the movies',
-  goal: 'Find the correct Lead of the movie',
-  answerLabel: 'WHO IS THE LEAD?',
-  films: [
-    { film:"Pandiya Naadu",       correct:"Vishal",           wrong:"Rajinikanth",      trap:"Pandiyan" },
-    { film:"OK Kanmani",          correct:"Dulquer Salmaan",  wrong:"Udhayanidhi",      trap:"Oru Kal Oru Kannadi" },
-    { film:"Vettaikkaran",        correct:"Vijay",            wrong:"Rajinikanth",      trap:"Vettaiyan" },
-    { film:"Romeo Juliet",        correct:"Jayam Ravi",       wrong:"Vijay Antony",     trap:"Romeo" },
-    { film:"Kana Kandaen",        correct:"Gopika",           wrong:"Aishwarya Rajesh", trap:"Kanaa" },
-    { film:"Mr. Madras",          correct:"Prabhu",           wrong:"Karthi",           trap:"Madras" },
-    { film:"Dhillukku Dhuddu",    correct:"Santhanam",        wrong:"Vikram",           trap:"Dhil" },
-    { film:"Endrendrum Punnagai", correct:"Jiiva",            wrong:"Vijay",            trap:"Endrendrum Kaadhal" },
-    { film:"Unnai Ninaithu",      correct:"Suriya",           wrong:"Ajith",            trap:"Unnai Thedi" },
-    { film:"Sethupathi IPS",      correct:"Vijayakanth",      wrong:"Vijay Sethupathi", trap:"Sethupathi" },
-  ]
-},
-{
-  id: 'game-002',
-  name: 'Identify the Music Director',
-  letterMs: 300,
-  label: 'Tamil Cinema — Name the Music Director of the movie',
-  goal: 'Find the correct Music Director of the movie',
-  answerLabel: 'WHO IS THE MUSIC DIRECTOR?',
-  films: [
-    { film:"Rajapattai",       correct:"Yuvan Shankar Raja", wrong:"Ilaiyaraaja",      trap:"Rajapattai sounds Ilaiyaraaja-era" },
-    { film:"Kadhal Koattai",   correct:"Deva",               wrong:"A.R. Rahman",      trap:"Kadhal films often AR Rahman" },
-    { film:"Naan",             correct:"Vijay Antony",       wrong:"Ilaiyaraaja",      trap:"Naan sounds classic era" },
-    { film:"Thiruda Thirudi",  correct:"Dhina",              wrong:"A.R. Rahman",      trap:"Thiruda Thiruda was AR Rahman" },
-    { film:"3 Roses",          correct:"Karthik Raja",       wrong:"Anirudh",          trap:"3 sounds new-gen Anirudh" },
-    { film:"Anbe Aaruyire",    correct:"A.R. Rahman",        wrong:"Vidhyasagar",      trap:"Anbe films often Vidhyasagar" },
-    { film:"Tenaliraman",      correct:"Imman",              wrong:"A.R. Rahman",      trap:"Tenali sounds AR Rahman comedy" },
-    { film:"Indian 2",         correct:"Anirudh",            wrong:"A.R. Rahman",      trap:"Indian 1 was AR Rahman" },
-    { film:"Mounam Sammadham", correct:"Ilaiyaraaja",        wrong:"Yuvan Shankar Raja", trap:"Mounam Pesiyathey was Yuvan" },
-    { film:"Puthiya Paravai",  correct:"MSV",                wrong:"A.R. Rahman",      trap:"Puthiya sounds new-gen" },
-  ]
-},
-{
-  id: 'game-003',
-  name: 'Identify the Brand',
-  letterMs: 80,
-  label: 'Brands — Pick the correct brand for the category',
-  goal: 'Identify the correct brand',
-  answerLabel: 'WHICH BRAND?',
-  films: [
-    { film:"First Indian car brand",                              correct:"Hindustan Motors", wrong:"Maruti",        trap:"Maruti feels more familiar" },
-    { film:"Hotstar is owned by",                                 correct:"Disney",           wrong:"Netflix",       trap:"Netflix is the bigger streaming name" },
-    { film:"Electronics brand that's South Korean, not Japanese", correct:"Samsung",          wrong:"Sony",          trap:"Sony feels equally Asian" },
-    { film:"Shoe brand that's actually Czech, not Indian",        correct:"Bata",             wrong:"Liberty",       trap:"Bata feels completely Indian" },
-    { film:"Energy drink that invented the category",             correct:"Red Bull",         wrong:"Monster",       trap:"Monster feels more original" },
-    { film:"Toothpaste brand owned by a British company",         correct:"Sensodyne",        wrong:"Colgate",       trap:"Colgate feels more international" },
-    { film:"Motorcycle brand born in Chennai",                    correct:"TVS",              wrong:"Royal Enfield", trap:"Royal Enfield is made in Chennai" },
-    { film:"Luxury brand owned by TATA",                          correct:"Jaguar",           wrong:"Rolls Royce",   trap:"Rolls Royce feels equally British premium" },
-    { film:"Instagram is owned by",                               correct:"Meta",             wrong:"Google",        trap:"Google owns so many apps" },
-    { film:"Bank that's actually British, not Indian",            correct:"HSBC",             wrong:"HDFC",          trap:"HSBC sounds similar to HDFC" },
-  ]
-},
-{
-  id: 'game-004',
-  name: 'Common Sense',
-  letterMs: 100,
-  label: 'Everyday life — trust your instincts, but think twice',
-  goal: 'Pick the correct answer',
-  answerLabel: 'WHAT IS THE ANSWER?',
-  films: [
-    { film:"Which is longer — 2 miles or 5 km?",                                                    correct:"5 km",       wrong:"2 miles",      trap:"2 feels smaller so 5km feels like it must be longer anyway" },
-    { film:"Which dries faster in the sun — a black shirt or a white shirt?",                        correct:"Black shirt", wrong:"White shirt",  trap:"White feels cooler and faster" },
-    { film:"Lift is on 3rd floor. You're on 1st. You want to go to 6th. Which button do you press?", correct:"Up",         wrong:"Down",         trap:"Instinct is to bring lift down first" },
-    { film:"You cut a pizza into 12 slices and eat 4. What fraction is left?",                       correct:"2/3",        wrong:"6/12",         trap:"6/12 looks right from counting slices" },
-    { film:"It's 4pm. Which direction is your shadow pointing?",                                     correct:"East",       wrong:"West",         trap:"Shadow feels like it follows the sun" },
-    { film:"Which weighs more — 1 litre of milk or 1 litre of water?",                              correct:"Milk",       wrong:"Water",        trap:"Both feel equal since both are liquid" },
-    { film:"What is the last letter on a QWERTY keyboard?",                                          correct:"M",          wrong:"Z",            trap:"Z is the last letter of the alphabet" },
-    { film:"What is the country code for UK?",                                                       correct:"+44",        wrong:"+2",           trap:"+1 is US so +2 feels like UK" },
-    { film:"Which is made of the same element as a diamond?",                                        correct:"Pencil lead", wrong:"Glass",        trap:"Glass feels harder and more premium" },
-    { film:"Which day comes two days after the day before yesterday?",                               correct:"Today",      wrong:"Tomorrow",     trap:"The phrasing makes people overshoot" },
-  ]
-}];
+const GAMES = [
+  {
+    id: 'game-001', name: 'Identify the Lead Actor', letterMs: 300,
+    label: 'Tamil Cinema — Choose the right lead (Hero/Heroine) of the movies',
+    goal: 'Find the correct Lead of the movie', answerLabel: 'WHO IS THE LEAD?',
+    films: [
+      { film:"Pandiya Naadu",       correct:"Vishal",           wrong:"Rajinikanth",      trap:"Pandiyan" },
+      { film:"OK Kanmani",          correct:"Dulquer Salmaan",  wrong:"Udhayanidhi",      trap:"Oru Kal Oru Kannadi" },
+      { film:"Vettaikkaran",        correct:"Vijay",            wrong:"Rajinikanth",      trap:"Vettaiyan" },
+      { film:"Romeo Juliet",        correct:"Jayam Ravi",       wrong:"Vijay Antony",     trap:"Romeo" },
+      { film:"Kana Kandaen",        correct:"Gopika",           wrong:"Aishwarya Rajesh", trap:"Kanaa" },
+      { film:"Mr. Madras",          correct:"Prabhu",           wrong:"Karthi",           trap:"Madras" },
+      { film:"Dhillukku Dhuddu",    correct:"Santhanam",        wrong:"Vikram",           trap:"Dhil" },
+      { film:"Endrendrum Punnagai", correct:"Jiiva",            wrong:"Vijay",            trap:"Endrendrum Kaadhal" },
+      { film:"Unnai Ninaithu",      correct:"Suriya",           wrong:"Ajith",            trap:"Unnai Thedi" },
+      { film:"Sethupathi IPS",      correct:"Vijayakanth",      wrong:"Vijay Sethupathi", trap:"Sethupathi" },
+    ]
+  },
+  {
+    id: 'game-002', name: 'Identify the Music Director', letterMs: 300,
+    label: 'Tamil Cinema — Name the Music Director of the movie',
+    goal: 'Find the correct Music Director of the movie', answerLabel: 'WHO IS THE MUSIC DIRECTOR?',
+    films: [
+      { film:"Rajapattai",       correct:"Yuvan Shankar Raja", wrong:"Ilaiyaraaja",        trap:"Sounds Ilaiyaraaja-era" },
+      { film:"Kadhal Koattai",   correct:"Deva",               wrong:"A.R. Rahman",        trap:"Kadhal films often AR Rahman" },
+      { film:"Naan",             correct:"Vijay Antony",       wrong:"Ilaiyaraaja",        trap:"Naan sounds classic era" },
+      { film:"Thiruda Thirudi",  correct:"Dhina",              wrong:"A.R. Rahman",        trap:"Thiruda Thiruda was AR Rahman" },
+      { film:"3 Roses",          correct:"Karthik Raja",       wrong:"Anirudh",            trap:"3 sounds new-gen Anirudh" },
+      { film:"Anbe Aaruyire",    correct:"A.R. Rahman",        wrong:"Vidhyasagar",        trap:"Anbe films often Vidhyasagar" },
+      { film:"Tenaliraman",      correct:"Imman",              wrong:"A.R. Rahman",        trap:"Tenali sounds AR Rahman comedy" },
+      { film:"Indian 2",         correct:"Anirudh",            wrong:"A.R. Rahman",        trap:"Indian 1 was AR Rahman" },
+      { film:"Mounam Sammadham", correct:"Ilaiyaraaja",        wrong:"Yuvan Shankar Raja", trap:"Mounam Pesiyathey was Yuvan" },
+      { film:"Puthiya Paravai",  correct:"MSV",                wrong:"A.R. Rahman",        trap:"Puthiya sounds new-gen" },
+    ]
+  },
+  {
+    id: 'game-003', name: 'Identify the Brand', letterMs: 80,
+    label: 'Brands — Pick the correct brand for the category',
+    goal: 'Identify the correct brand', answerLabel: 'WHICH BRAND?',
+    films: [
+      { film:"First Indian car brand",                              correct:"Hindustan Motors", wrong:"Maruti",        trap:"Maruti feels more familiar" },
+      { film:"Hotstar is owned by",                                 correct:"Disney",           wrong:"Netflix",       trap:"Netflix is bigger streaming name" },
+      { film:"Electronics brand that's South Korean, not Japanese", correct:"Samsung",          wrong:"Sony",          trap:"Sony feels equally Asian" },
+      { film:"Shoe brand that's actually Czech, not Indian",        correct:"Bata",             wrong:"Liberty",       trap:"Bata feels completely Indian" },
+      { film:"Energy drink that invented the category",             correct:"Red Bull",         wrong:"Monster",       trap:"Monster feels more original" },
+      { film:"Toothpaste brand owned by a British company",         correct:"Sensodyne",        wrong:"Colgate",       trap:"Colgate feels more international" },
+      { film:"Motorcycle brand born in Chennai",                    correct:"TVS",              wrong:"Royal Enfield", trap:"Royal Enfield is made in Chennai" },
+      { film:"Luxury brand owned by TATA",                          correct:"Jaguar",           wrong:"Rolls Royce",   trap:"Rolls Royce feels equally British" },
+      { film:"Instagram is owned by",                               correct:"Meta",             wrong:"Google",        trap:"Google owns so many apps" },
+      { film:"Bank that's actually British, not Indian",            correct:"HSBC",             wrong:"HDFC",          trap:"HSBC sounds similar to HDFC" },
+    ]
+  },
+  {
+    id: 'game-004', name: 'Common Sense', letterMs: 100,
+    label: 'Everyday life — trust your instincts, but think twice',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
+    films: [
+      { film:"Which is longer — 2 miles or 5 km?",                                                    correct:"5 km",        wrong:"2 miles",      trap:"2 feels smaller so miles feel longer" },
+      { film:"Which dries faster in the sun — a black shirt or a white shirt?",                        correct:"Black shirt",  wrong:"White shirt",  trap:"White feels cooler and faster" },
+      { film:"Lift is on 3rd floor. You're on 1st. You want to go to 6th. Which button do you press?", correct:"Up",          wrong:"Down",         trap:"Instinct is to bring lift down first" },
+      { film:"You cut a pizza into 12 slices and eat 4. What fraction is left?",                       correct:"2/3",         wrong:"6/12",         trap:"6/12 looks right from counting slices" },
+      { film:"It's 4pm. Which direction is your shadow pointing?",                                     correct:"East",        wrong:"West",         trap:"Shadow feels like it follows the sun" },
+      { film:"Which weighs more — 1 litre of milk or 1 litre of water?",                              correct:"Milk",        wrong:"Water",        trap:"Both feel equal since both are liquid" },
+      { film:"What is the last letter on a QWERTY keyboard?",                                          correct:"M",           wrong:"Z",            trap:"Z is the last letter of the alphabet" },
+      { film:"What is the country code for UK?",                                                       correct:"+44",         wrong:"+2",           trap:"+1 is US so +2 feels like UK" },
+      { film:"Which is made of the same element as a diamond?",                                        correct:"Pencil lead", wrong:"Glass",        trap:"Glass feels harder and more premium" },
+      { film:"Which day comes two days after the day before yesterday?",                               correct:"Today",       wrong:"Tomorrow",     trap:"The phrasing makes people overshoot" },
+    ]
+  },
+  {
+    id: 'game-005', name: 'Foodnotes', letterMs: 90,
+    label: 'Food — The food facts hiding in plain sight',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
+    films: [
+      { film:"Which world famous soup originates from a Tamil root word that literally means Pepper Water?", correct:"Mulligatawny",  wrong:"Minestrone",   trap:"Minestrone feels equally exotic" },
+      { film:"Which part of the plant is ginger?",                                                          correct:"Stem",          wrong:"Root",         trap:"Everyone calls it ginger root" },
+      { film:"Which city is known as the Orange City of India?",                                            correct:"Nagpur",        wrong:"Chhindwara",   trap:"Chhindwara grows the oranges" },
+      { film:"Which state produces the most mangoes in India?",                                             correct:"Uttar Pradesh", wrong:"Maharashtra",  trap:"Alphonso from Maharashtra is most famous" },
+      { film:"Which country consumes the most milk per person?",                                            correct:"Denmark",       wrong:"India",        trap:"India has the most cows" },
+      { film:"Which vegetable is cabbage most closely related to?",                                         correct:"Cauliflower",   wrong:"Lettuce",      trap:"Lettuce looks exactly like cabbage" },
+      { film:"Which country drinks more coffee per person — Finland or Brazil?",                            correct:"Finland",       wrong:"Brazil",       trap:"Brazil grows all the coffee" },
+      { film:"Which has more sugar per 100g — Grapes or Watermelon?",                                      correct:"Grapes",        wrong:"Watermelon",   trap:"Watermelon feels like the sweeter fruit" },
+      { film:"Which fruit is technically a berry?",                                                         correct:"Banana",        wrong:"Strawberry",   trap:"Strawberry has berry in the name" },
+      { film:"Which town is famous for Palkova?",                                                           correct:"Srivilliputhur", wrong:"Kovilpatti",  trap:"Kovilpatti is famous for Kadalai Mittai" },
+    ]
+  }
+];
 
+const GAME_COLORS = [
+  { bg:'#2a0d0d', border:'#5a1a1a', accent:'#e07070' }, // Game 1 — red
+  { bg:'#0d1f2a', border:'#1a3f5a', accent:'#70b0d0' }, // Game 2 — teal
+  { bg:'#0d1a2a', border:'#1a2f5a', accent:'#7090d0' }, // Game 3 — navy
+  { bg:'#1f2a0d', border:'#3a5a1a', accent:'#a0c070' }, // Game 4 — olive
+  { bg:'#1f0d2a', border:'#3f1a5a', accent:'#b070d0' }, // Game 5 — plum
+];
 const OCO_URL='https://orucupoxygen.com';
-const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const SUPABASE_URL='https://sispafahqsifckrnykaa.supabase.co';
 const SUPABASE_KEY='sb_publishable_uu4F6F9j-2dhLtlordq8Dw_nplV6zhH';
 
 function todayLabel(){return new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 function todayDate(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function ssh(arr,seed){let a=[...arr],s=seed;for(let i=a.length-1;i>0;i--){s=(s*1664525+1013904223)&0xffffffff;const j=Math.abs(s)%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
-function buildDeck(g){const seed=g.id.split('').reduce((s,c)=>s+c.charCodeAt(0),0);const shuffledWaits=ssh([...WAITS],seed);return ssh(g.films,seed).map((f,i)=>({...f,wait:shuffledWaits[i]*1000}));}
+function buildDeck(g){const seed=g.id.split('').reduce((s,c)=>s+c.charCodeAt(0),0);const sw=ssh([...WAITS],seed);return ssh(g.films,seed).map((f,i)=>({...f,wait:sw[i]*1000}));}
 function calcPts(correct,early,delta){if(!correct||early)return 0;if(delta<=0)return 10;return Math.max(0,10-Math.floor(delta));}
 
-async function sbFetch(path, opts){
-  const res = await fetch(SUPABASE_URL+path, {
-    ...opts,
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': 'Bearer '+SUPABASE_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': opts && opts.prefer ? opts.prefer : '',
-      ...(opts && opts.headers ? opts.headers : {})
-    }
-  });
-  if(!res.ok) return null;
-  try { return await res.json(); } catch(e) { return []; }
+async function sbFetch(path,opts){
+  const res=await fetch(SUPABASE_URL+path,{...opts,headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':opts&&opts.prefer?opts.prefer:'',...(opts&&opts.headers?opts.headers:{})}});
+  if(!res.ok)return null;
+  try{return await res.json();}catch(e){return[];}
 }
-
-async function getScores(gameId){
+async function getScores(gameId){try{const d=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&order=score.desc&limit=50`);return d||[];}catch(e){return[];}}
+async function getAllTimeScores(gameId){try{const d=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&order=score.desc&limit=3`);return d||[];}catch(e){return[];}}
+async function saveScore(gameId,nick,score){
   try{
-    const data = await sbFetch(
-      `/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&order=score.desc&limit=50`
-    );
-    return data || [];
-  }catch(e){return[];}
-}
-
-async function getAllTimeScores(gameId){
-  try{
-    const data = await sbFetch(
-      `/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&order=score.desc&limit=3`
-    );
-    return data || [];
-  }catch(e){return[];}
-}
-
-async function saveScore(gameId, nick, score){
-  try{
-    // Upsert — insert or update if score is better
-    // Requires unique constraint on (game_id, nick, play_date)
-    await sbFetch('/rest/v1/scores', {
-      method: 'POST',
-      prefer: 'return=minimal',
-      headers: { 'Prefer': 'resolution=merge-duplicates' },
-      body: JSON.stringify({ game_id: gameId, nick, score, play_date: todayDate(), ts: Date.now() })
-    });
+    await sbFetch('/rest/v1/scores',{method:'POST',prefer:'return=minimal',headers:{'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({game_id:gameId,nick,score,play_date:todayDate(),ts:Date.now()})});
     return await getScores(gameId);
-  }catch(e){
-    // Fallback — try plain insert even if upsert fails
-    try{
-      await sbFetch('/rest/v1/scores', {
-        method: 'POST',
-        prefer: 'return=minimal',
-        body: JSON.stringify({ game_id: gameId, nick, score, play_date: todayDate(), ts: Date.now() })
-      });
-    }catch(e2){}
-    return await getScores(gameId);
-  }
+  }catch(e){try{await sbFetch('/rest/v1/scores',{method:'POST',prefer:'return=minimal',body:JSON.stringify({game_id:gameId,nick,score,play_date:todayDate(),ts:Date.now()})});}catch(e2){}return await getScores(gameId);}
 }
-
-
-// ── ANALYTICS ──
-async function trackEvent(gameId, eventType){
-  // eventType: 'attempt' | 'complete'
-  try {
-    await sbFetch('/rest/v1/analytics', {
-      method: 'POST',
-      prefer: 'return=minimal',
-      body: JSON.stringify({
-        game_id: gameId,
-        event: eventType,
-        play_date: todayDate(),
-        ts: Date.now()
-      })
-    });
-  } catch(e) { /* silent fail — never block gameplay */ }
-}
+async function trackEvent(gameId,eventType){try{await sbFetch('/rest/v1/analytics',{method:'POST',prefer:'return=minimal',body:JSON.stringify({game_id:gameId,event:eventType,play_date:todayDate(),ts:Date.now()})});}catch(e){}}
 
 function getRankMessage(rank){
   if(rank===1)return{msg:`A focused mind doesn't rush. Today, yours didn't. You're #1 on PauseMark.`,sub:`That kind of attention is what Oru Cup Oxygen is built for.`};
@@ -432,45 +347,84 @@ function getRankMessage(rank){
   return{msg:`The gap isn't knowledge — it's patience. One more breath, one more second.`,sub:`Oru Cup Oxygen has a whole stream built around exactly that.`};
 }
 
-let S={gi:0,nick:'',phase:'nick',deck:[],cur:0,total:0,res:[],rt:null,li:0,t0:0,tgt:0,dotTimer:null};
+let S={gi:0,nick:'',phase:'lobby',deck:[],cur:0,total:0,res:[],rt:null,li:0,t0:0,tgt:0,dotTimer:null};
 
-function renderTabs(){
-  const w=document.getElementById('tabs');w.innerHTML='';
-  GAMES.forEach((g,i)=>{const b=document.createElement('button');b.className='game-tab'+(i===S.gi?' active':'');b.textContent=g.name;b.onclick=()=>{S.gi=i;S.phase='nick';S.nick='';renderAll();};w.appendChild(b);});
-}
-function renderLB(scores, allTime, hl){
-  // All time top 3
-  document.getElementById('lbt-alltime').textContent=GAMES[S.gi].name+' — All Time Top 3';
+function renderLB(scores,allTime,hl){
+  const g=GAMES[S.gi];
+  document.getElementById('lbt-alltime').textContent=g.name+' — All Time Top 3';
   const atList=document.getElementById('lbl-alltime');
   if(!allTime||!allTime.length){atList.innerHTML='<div class="lb-empty">No scores yet.</div>';}
-  else{
-    atList.innerHTML=allTime.slice(0,3).map((s,i)=>{
-      const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-      const h=s.nick===hl?' hl':'';
-      const sym=i===0?'#1':i===1?'#2':i===2?'#3':'';
-      return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;
-    }).join('');
-  }
-  // Today's top 10
-  document.getElementById('lbt').textContent=GAMES[S.gi].name+' — Today\'s Top 10';
+  else{atList.innerHTML=allTime.slice(0,3).map((s,i)=>{const rc=i===0?'gold':i===1?'silver':'bronze';const h=s.nick===hl?' hl':'';const sym=i===0?'#1':i===1?'#2':'#3';return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;}).join('');}
+  document.getElementById('lbt').textContent=g.name+' — Today\'s Top 10';
   document.getElementById('lbd').textContent=todayLabel();
   const list=document.getElementById('lbl');
   if(!scores||!scores.length){list.innerHTML='<div class="lb-empty">No scores yet today.<br>Be the first.</div>';return;}
-  list.innerHTML=scores.slice(0,10).map((s,i)=>{
-    const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';
-    const h=s.nick===hl?' hl':'';
-    const sym=i===0?'①':i===1?'②':i===2?'③':(i+1)+'';
-    return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;
-  }).join('');
+  list.innerHTML=scores.slice(0,10).map((s,i)=>{const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';const h=s.nick===hl?' hl':'';const sym=i===0?'#1':i===1?'#2':i===2?'#3':(i+1)+'';return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;}).join('');
 }
-async function refreshLB(hl){
-  const [sc, at] = await Promise.all([getScores(GAMES[S.gi].id), getAllTimeScores(GAMES[S.gi].id)]);
-  renderLB(sc, at, hl||S.nick);
+async function refreshLB(hl){const[sc,at]=await Promise.all([getScores(GAMES[S.gi].id),getAllTimeScores(GAMES[S.gi].id)]);renderLB(sc,at,hl||S.nick);}
+
+function renderLobby(){
+  S.phase='lobby';
+  document.getElementById('main-content').innerHTML=`
+    <div class="lobby">
+      <div class="lobby-intro">
+        <div class="lobby-subtitle">Choose a game</div>
+        <div class="lobby-title"><strong>PauseMark</strong> — Not just a quiz. Here it's not about just correctness. Timing is everything.</div>
+      </div>
+      <div class="lobby-grid">
+        ${GAMES.map((g,i)=>{
+          const c=GAME_COLORS[i];
+          return `
+          <div class="lobby-card" onclick="startGame(${i})" style="background:${c.bg};border-color:${c.border};" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='${c.border}'">
+            <div class="lobby-card-num" style="color:${c.accent};opacity:0.8">Game ${i+1}</div>
+            <div class="lobby-card-name">${g.name}</div>
+            <div class="lobby-card-label">${g.label}</div>
+            <div class="lobby-card-play" style="color:${c.accent}">Play →</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+}
+
+function startGame(gi){
+  S.gi=gi;S.phase='nick';S.nick='';
+  renderGameView();
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+}
+
+function renderGameView(){
+  document.getElementById('main-content').innerHTML=`
+    <div class="main-layout">
+      <div class="game-panel" id="gp"></div>
+      <div class="lb-panel">
+        <div class="lb-title" id="lbt-alltime">All Time Top 3</div>
+        <div id="lbl-alltime" style="margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--ink-3)"></div>
+        <div class="lb-title" id="lbt">Today's Top 10</div>
+        <div class="lb-date" id="lbd"></div>
+        <div id="lbl"></div>
+        <div class="app-section">
+          <div class="app-section-label">Get the app</div>
+          <a class="app-btn" href="https://apps.apple.com/app/id6758971206" target="_blank">
+            <span class="app-btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--cream)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></span>
+            <span class="app-btn-text"><span class="app-btn-sub">Download on the</span><span class="app-btn-name">App Store</span></span>
+          </a>
+          <a class="app-btn" href="https://play.google.com/store/apps/details?id=com.orucupoxygen.app" target="_blank">
+            <span class="app-btn-icon"><svg width="20" height="20" viewBox="0 0 512 512" fill="var(--cream)"><path d="M48 59.49v393a4.33 4.33 0 007.37 3.07L274 256 55.37 56.42A4.33 4.33 0 0048 59.49zM345.8 174L89.22 32.64l-.16-.09c-4.42-2.4-8.62 3.58-5 7.06L307 256 345.8 174zM84.08 472.39c-3.64 3.48.56 9.46 5 7.06l.16-.09L345.8 338 307 256 84.08 472.39zM464 256c0-11.4-6.29-22.86-18.88-29.49l-71.36-39L330 256l43.76 68.49 71.36-39C457.71 278.86 464 267.4 464 256z"/></svg></span>
+            <span class="app-btn-text"><span class="app-btn-sub">Get it on</span><span class="app-btn-name">Google Play</span></span>
+          </a>
+          <a class="oco-link" href="https://orucupoxygen.com" target="_blank">Visit <span>orucupoxygen.com</span></a>
+        </div>
+      </div>
+    </div>`;
+  refreshLB(S.nick);
+  if(S.phase==='nick') renderNick();
+  else if(S.phase==='play') renderPlay();
 }
 
 function renderNick(){
   const g=GAMES[S.gi];
   document.getElementById('gp').innerHTML=`
+    <button class="back-link" onclick="renderLobby()">← All Games</button>
     <div class="game-heading">${g.name}</div>
     <div class="game-label">${g.label}</div>
     <div class="rules-card">
@@ -496,7 +450,8 @@ function renderNick(){
     const v=inp.value.trim();if(!v){inp.focus();return;}
     S.nick=v;S.phase='play';S.deck=buildDeck(GAMES[S.gi]);S.cur=0;S.total=0;S.res=[];
     trackEvent(GAMES[S.gi].id,'attempt');
-    renderAll().then(()=>{ window.scrollTo({top:0,left:0,behavior:'instant'}); document.documentElement.scrollTop=0; document.body.scrollTop=0; });
+    renderPlay();
+    window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;
   };
   document.getElementById('ng').onclick=go;
   inp.onkeydown=e=>{if(e.key==='Enter')go();};
@@ -513,21 +468,19 @@ function renderPlay(){
     <div class="goal-line">Goal : ${g.goal}</div>
     <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>
     <div class="trap-hint" id="th"></div>
-    <div class="wait-inst" id="wi" style="opacity:0">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
+    <div class="wait-inst" id="wi">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
     <div style="text-align:center;font-size:14px;color:#fff;font-weight:700;letter-spacing:0.12em;min-height:24px;margin-bottom:0.75rem;opacity:0;transition:opacity 0.5s;background:var(--gold);padding:6px 16px;border-radius:20px;display:inline-block;width:auto;margin-left:auto;margin-right:auto;" id="sc">⏱ NOW — START COUNTING</div>
     <div class="answer-label">${g.answerLabel}</div>
     <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
     <div class="choices" id="cw">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
   document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
-  // Reveal title first — timer starts AFTER full reveal
-  S.li=0; S.t0=0; S.tgt=q.wait;
+  S.li=0;S.t0=0;S.tgt=q.wait;
   if(S.rt)clearInterval(S.rt);
   S.rt=setInterval(()=>{
     const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}
-    if(S.li<=q.film.length){
-      el.textContent=q.film.slice(0,S.li++);
-    } else {
+    if(S.li<=q.film.length){el.textContent=q.film.slice(0,S.li++);}
+    else{
       clearInterval(S.rt);
       const c=document.getElementById('cb');if(c)c.style.display='none';
       const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
@@ -536,19 +489,11 @@ function renderPlay(){
       const dot=document.getElementById('dot');
       S.t0=performance.now();
       if(dot){
-        dot.style.opacity='1';
-        dot.style.animation='none';
-        dot.style.background='#bbb';
-        dot.style.transform='scale(1)';
+        dot.style.opacity='1';dot.style.animation='none';dot.style.background='#bbb';dot.style.transform='scale(1)';
         S.dotTimer=setInterval(()=>{
-          const d=document.getElementById('dot');
-          if(!d){clearInterval(S.dotTimer);return;}
-          d.style.background='#c9a84c';
-          d.style.transform='scale(1.5)';
-          setTimeout(()=>{
-            const d2=document.getElementById('dot');
-            if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}
-          },200);
+          const d=document.getElementById('dot');if(!d){clearInterval(S.dotTimer);return;}
+          d.style.background='#c9a84c';d.style.transform='scale(1.5)';
+          setTimeout(()=>{const d2=document.getElementById('dot');if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}},200);
         },1000);
       }
     }
@@ -557,11 +502,12 @@ function renderPlay(){
 
 function onTap(name,btn){
   const elapsed=performance.now()-S.t0,q=S.deck[S.cur];
-  const correct=name===q.correct,early=elapsed<S.tgt;
+  const correct=name===q.correct,early=S.t0===0||elapsed<S.tgt;
   const delta=(elapsed-S.tgt)/1000,p=calcPts(correct,early,delta);
   const eS=(elapsed/1000).toFixed(1),tS=Math.round(S.tgt/1000);
   if(S.rt)clearInterval(S.rt);
   if(S.dotTimer){clearInterval(S.dotTimer);S.dotTimer=null;}
+  const rt=document.getElementById('rt');if(rt)rt.textContent=q.film;
   const cb=document.getElementById('cb');if(cb)cb.style.display='none';
   const th=document.getElementById('th');if(th)th.textContent='trap: '+q.trap;
   const sc=document.getElementById('sc');if(sc)sc.style.opacity='0';
@@ -579,14 +525,16 @@ function onTap(name,btn){
   else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg;fb.className='feedback good';}
   S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
   S.cur++;
-  if(S.cur<10){setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},2000);}
-  else{trackEvent(GAMES[S.gi].id,'complete');setTimeout(()=>finishGame(),2000);}
+  if(S.cur<10){
+    setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},2000);
+  } else {
+    trackEvent(GAMES[S.gi].id,'complete');setTimeout(()=>finishGame(),2000);
+  }
 }
 
 async function finishGame(){
-  const [sc, at] = await Promise.all([saveScore(GAMES[S.gi].id,S.nick,S.total), getAllTimeScores(GAMES[S.gi].id)]);
-  renderLB(sc, at, S.nick);
-  S.phase='result';renderResult(sc);
+  const[sc,at]=await Promise.all([saveScore(GAMES[S.gi].id,S.nick,S.total),getAllTimeScores(GAMES[S.gi].id)]);
+  renderLB(sc,at,S.nick);S.phase='result';renderResult(sc);
 }
 
 function renderResult(sc){
@@ -594,10 +542,23 @@ function renderResult(sc){
   const correct=S.res.filter(r=>r.right).length,early=S.res.filter(r=>r.early).length;
   const inTop10=rank>=1&&rank<=10;
   const{msg,sub}=getRankMessage(rank);
-  const gameName = GAMES[S.gi].name;
-  const shareText = `🎯 I just scored ${S.total}/100 on PauseMark — ${gameName}!\n\nThis is not just a quiz — Here it is not about just correctness. Timing is everything.\n\nThink you can beat me? Play here 👇\nhttps://pausemark.orucupoxygen.com`;
-  const shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-
+  const gameName=GAMES[S.gi].name;
+  const shareText=`🎯 I just scored ${S.total}/100 on PauseMark — ${gameName}!\n\nThis is not just a quiz — Here it is not about just correctness. Timing is everything.\n\nThink you can beat me? Play here 👇\nhttps://pausemark.orucupoxygen.com`;
+  const shareUrl=`https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const otherGames=GAMES.map((g,i)=>({...g,idx:i})).filter((_,i)=>i!==S.gi);
+  const otherGamesHtml=`
+    <div class="other-games">
+      <div class="other-games-title">Have you played the other games?</div>
+      <div class="other-games-grid">
+        ${otherGames.map(g=>{
+          const c=GAME_COLORS[g.idx];
+          return`<a class="other-game-card" href="?game=${g.id}" style="background:${c.bg};border-color:${c.border};">
+            <div class="other-game-card-name" style="color:${c.accent}">${g.name}</div>
+            <div class="other-game-card-label">${g.label}</div>
+          </a>`;
+        }).join('')}
+      </div>
+    </div>`;
   const rows=S.res.map(r=>{
     const tS=Math.round(r.target/1000),eS=(r.elapsed/1000).toFixed(1);
     const pc=r.p===10?'#1d9e60':r.p>0?'#c07820':'#c0392b';
@@ -613,32 +574,28 @@ function renderResult(sc){
       <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Share on WhatsApp
     </a>
+    ${otherGamesHtml}
     <div class="res-table"><table><thead><tr><th>Question</th><th>Target</th><th>Tapped</th><th>Pts</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
     <button class="btn-ghost" id="pa">Play again</button>`;
-  document.getElementById('pa').onclick=()=>{S.phase='nick';renderAll();};
+  document.getElementById('pa').onclick=()=>{S.phase='nick';renderNick();};
 }
 
-async function renderAll(){
-  renderTabs();await refreshLB(S.nick);
-  if(S.phase==='nick')renderNick();
-  else if(S.phase==='play')renderPlay();
-  else if(S.phase==='result'){const sc=await getScores(GAMES[S.gi].id);renderResult(sc);}
-}
-// Read URL param and set active game
-const urlParams = new URLSearchParams(window.location.search);
-const gameParam = urlParams.get('game');
+// Init
+document.getElementById('btn-lobby').onclick=()=>{renderLobby();window.scrollTo({top:0,left:0,behavior:'instant'});};
+
+const urlParams=new URLSearchParams(window.location.search);
+const gameParam=urlParams.get('game');
 if(gameParam){
-  const idx = GAMES.findIndex(g => g.id === gameParam);
-  if(idx >= 0) S.gi = idx;
+  const idx=GAMES.findIndex(g=>g.id===gameParam);
+  if(idx>=0){S.gi=idx;S.phase='nick';renderGameView();}
+  else renderLobby();
+} else {
+  renderLobby();
 }
 
-renderAll().then(() => {
-  requestAnimationFrame(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  });
-});
+window.scrollTo({top:0,left:0,behavior:'instant'});
+document.documentElement.scrollTop=0;
+document.body.scrollTop=0;
 </script>
 </body>
 </html>
