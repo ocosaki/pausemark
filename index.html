@@ -530,10 +530,13 @@ function renderPlay(){
       S.t0=performance.now();
       if(dot){
         dot.style.opacity='1';dot.style.animation='none';dot.style.background='#bbb';dot.style.transform='scale(1)';
+        let dotCount=0;
         S.dotTimer=setInterval(()=>{
           const d=document.getElementById('dot');if(!d){clearInterval(S.dotTimer);return;}
+          dotCount++;
           d.style.background='#c9a84c';d.style.transform='scale(1.5)';
           setTimeout(()=>{const d2=document.getElementById('dot');if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}},200);
+          if(dotCount>=3){clearInterval(S.dotTimer);S.dotTimer=null;setTimeout(()=>{const d3=document.getElementById('dot');if(d3)d3.style.opacity='0';},300);}
         },1000);
       }
     }
