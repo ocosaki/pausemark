@@ -326,6 +326,23 @@ const GAMES = [
       { film:"Which town is famous for Palkova?",                                                           correct:"Srivilliputhur", wrong:"Kovilpatti",  trap:"Kovilpatti is famous for Kadalai Mittai" },
     ]
   }
+  ,{
+    id: 'game-006', name: 'IPL: The Superover', letterMs: 95,
+    label: 'IPL — Things fans think they know, but have slightly wrong',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
+    films: [
+      { film:"First team to win the IPL",                                          correct:"Rajasthan Royals",      wrong:"Chennai Super Kings",  trap:"CSK lost the first final to RR" },
+      { film:"The team Dhoni played for in 2016 and 2017",                          correct:"Rising Pune Supergiant", wrong:"Pune Warriors India",   trap:"Pune Warriors India was a real but separate defunct franchise" },
+      { film:"How long is a strategic timeout in IPL?",                            correct:"2 mins 30 secs",        wrong:"2 mins",               trap:"The 30 seconds feels like a rounding error" },
+      { film:"The man who scored 158* in the very first IPL match",                correct:"Brendon McCullum",      wrong:"Chris Gayle",           trap:"Gayle holds the highest IPL score — feels like he owns the first big knock too" },
+      { film:"Mumbai Indians captain when they won their first IPL title in 2013", correct:"Rohit Sharma",          wrong:"Sachin Tendulkar",      trap:"Sachin captained MI for years — Rohit took over mid-season" },
+      { film:"Which of these teams has never won an IPL trophy?",                  correct:"Punjab Kings",          wrong:"Gujarat Titans",        trap:"GT are newer — feels like they haven't won. But they won in their debut season 2022" },
+      { film:"Which CSK player has never won an Orange Cap?",                      correct:"Suresh Raina",          wrong:"Ruturaj Gaikwad",       trap:"Raina was CSK's most iconic batter for years" },
+      { film:"First foreign captain to win the IPL",                               correct:"Shane Warne",           wrong:"Adam Gilchrist",        trap:"Both are Australian, both won early — easy to mix up" },
+      { film:"IPL 2009 was played in which country?",                              correct:"South Africa",          wrong:"UAE",                   trap:"UAE hosted later editions — feels like the familiar IPL abroad answer" },
+      { film:"First Purple Cap winner in IPL history",                             correct:"Sohail Tanvir",         wrong:"Lasith Malinga",        trap:"Malinga is the iconic IPL bowler" },
+    ]
+  }
 ];
 
 const GAME_COLORS = [
@@ -334,6 +351,7 @@ const GAME_COLORS = [
   { bg:'#0d1a2a', border:'#1a2f5a', accent:'#7090d0' }, // Game 3 — navy
   { bg:'#1f2a0d', border:'#3a5a1a', accent:'#a0c070' }, // Game 4 — olive
   { bg:'#1f0d2a', border:'#3f1a5a', accent:'#b070d0' }, // Game 5 — plum
+  { bg:'#0d1a1f', border:'#1a3f4a', accent:'#70c0d0' }, // Game 6 — slate
 ];
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
