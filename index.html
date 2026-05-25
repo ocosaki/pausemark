@@ -325,22 +325,39 @@ const GAMES = [
       { film:"Which fruit is technically a berry?",                                                         correct:"Banana",        wrong:"Strawberry",   trap:"Strawberry has berry in the name" },
       { film:"Which town is famous for Palkova?",                                                           correct:"Srivilliputhur", wrong:"Kovilpatti",  trap:"Kovilpatti is famous for Kadalai Mittai" },
     ]
-  }
-  ,{
+  },
+  {
     id: 'game-006', name: 'IPL: The Superover', letterMs: 95,
     label: 'IPL — Things fans think they know, but have slightly wrong',
     goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
     films: [
-      { film:"First team to win the IPL",                                          correct:"Rajasthan Royals",      wrong:"Chennai Super Kings",  trap:"CSK lost the first final to RR" },
-      { film:"The team Dhoni played for in 2016 and 2017",                          correct:"Rising Pune Supergiant", wrong:"Pune Warriors India",   trap:"Pune Warriors India was a real but separate defunct franchise" },
-      { film:"How long is a strategic timeout in IPL?",                            correct:"2 mins 30 secs",        wrong:"2 mins",               trap:"The 30 seconds feels like a rounding error" },
-      { film:"The man who scored 158* in the very first IPL match",                correct:"Brendon McCullum",      wrong:"Chris Gayle",           trap:"Gayle holds the highest IPL score — feels like he owns the first big knock too" },
-      { film:"Mumbai Indians captain when they won their first IPL title in 2013", correct:"Rohit Sharma",          wrong:"Sachin Tendulkar",      trap:"Sachin captained MI for years — Rohit took over mid-season" },
-      { film:"Which of these teams has never won an IPL trophy?",                  correct:"Punjab Kings",          wrong:"Gujarat Titans",        trap:"GT are newer — feels like they haven't won. But they won in their debut season 2022" },
-      { film:"Which CSK player has never won an Orange Cap?",                      correct:"Suresh Raina",          wrong:"Ruturaj Gaikwad",       trap:"Raina was CSK's most iconic batter for years" },
-      { film:"First foreign captain to win the IPL",                               correct:"Shane Warne",           wrong:"Adam Gilchrist",        trap:"Both are Australian, both won early — easy to mix up" },
-      { film:"IPL 2009 was played in which country?",                              correct:"South Africa",          wrong:"UAE",                   trap:"UAE hosted later editions — feels like the familiar IPL abroad answer" },
-      { film:"First Purple Cap winner in IPL history",                             correct:"Sohail Tanvir",         wrong:"Lasith Malinga",        trap:"Malinga is the iconic IPL bowler" },
+      { film:"First team to win the IPL",                                          correct:"Rajasthan Royals",        wrong:"Chennai Super Kings",    trap:"CSK lost the first final to RR" },
+      { film:"The team Dhoni played for in 2016 and 2017",                         correct:"Rising Pune Supergiant", wrong:"Pune Warriors India",    trap:"Pune Warriors India was a real but separate defunct franchise" },
+      { film:"How long is a strategic timeout in IPL?",                            correct:"2 mins 30 secs",         wrong:"2 mins",                 trap:"The 30 seconds feels like a rounding error" },
+      { film:"The man who scored 158* in the very first IPL match",                correct:"Brendon McCullum",       wrong:"Chris Gayle",            trap:"Gayle holds the highest IPL score — feels like he owns the first big knock too" },
+      { film:"Mumbai Indians captain when they won their first IPL title in 2013",  correct:"Rohit Sharma",           wrong:"Sachin Tendulkar",       trap:"Sachin captained MI for years — Rohit took over mid-season" },
+      { film:"Which of these teams has never won an IPL trophy?",                  correct:"Punjab Kings",           wrong:"Gujarat Titans",         trap:"GT are newer — feels like they haven't won. But they won in their debut season 2022" },
+      { film:"Which CSK player has never won an Orange Cap?",                      correct:"Suresh Raina",           wrong:"Ruturaj Gaikwad",        trap:"Raina was CSK's most iconic batter for years" },
+      { film:"First foreign captain to win the IPL",                               correct:"Shane Warne",            wrong:"Adam Gilchrist",         trap:"Both are Australian, both won early — easy to mix up" },
+      { film:"IPL 2009 was played in which country?",                              correct:"South Africa",           wrong:"UAE",                    trap:"UAE hosted later editions — feels like the familiar IPL abroad answer" },
+      { film:"First Purple Cap winner in IPL history",                             correct:"Sohail Tanvir",          wrong:"Lasith Malinga",         trap:"Malinga is the iconic IPL bowler" },
+    ]
+  },
+  {
+    id: 'game-007', name: 'Doordarshan', letterMs: 90,
+    label: 'DD — Things every Doordarshan generation fan thinks they know',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
+    films: [
+      { film:"In which year did regular daily transmission begin on Doordarshan?",       correct:"1965",                                  wrong:"1979",                       trap:"1979 has no specific DD milestone — just feels like the right era" },
+      { film:"India's first soap opera on Doordarshan",                                  correct:"Hum Log",                               wrong:"Ramayan",                    trap:"Ramayan is the iconic DD show but Hum Log aired 3 years earlier in 1984" },
+      { film:"Which actor did NOT appear in the original Mile Sur Mera Tumhara?",        correct:"Rajinikanth",                           wrong:"Kamal Haasan",               trap:"Both are Tamil superstars of that era — Kamal was actually in it" },
+      { film:"The DD program that featured movie songs from multiple Indian languages",  correct:"Chitramala",                            wrong:"Chitrahar",                  trap:"Chitrahar is the far more famous name — Chitramala is the forgotten sibling" },
+      { film:"Oliyum Oliyum aired on which day?",                                        correct:"Friday",                                wrong:"Sunday",                     trap:"Sunday was Tamil movie day — feels like Oliyum Oliyum's slot" },
+      { film:"Who was the first host of Superhit Muqabla?",                              correct:"Baba Sehgal",                           wrong:"Shah Rukh Khan",             trap:"SRK hosted later and is the more famous name associated with it" },
+      { film:"Who composed the iconic Doordarshan news signature tune?",                 correct:"Ravi Shankar & Ali Ahmed Hussain Khan", wrong:"Zakir Hussain & R.D. Burman", trap:"Both are era-defining musicians — RD owned that generation's sound" },
+      { film:"How many episodes did Ramayan run for?",                                   correct:"78",                                    wrong:"156",                        trap:"156 was Hum Log's episode count — the numbers cross-contaminate in memory" },
+      { film:"Who hosted Quiz Time on Doordarshan?",                                     correct:"Siddhartha Basu",                       wrong:"Derek O'Brien",              trap:"Derek O'Brien is the other face of Indian quizzing — both blur together" },
+      { film:"Colour TV in India was introduced on Doordarshan during which event?",     correct:"1982 Asian Games",                      wrong:"1983 Cricket World Cup",     trap:"India winning the 1983 World Cup is the more emotionally charged memory" },
     ]
   }
 ];
@@ -352,23 +369,7 @@ const GAME_COLORS = [
   { bg:'#1f2a0d', border:'#3a5a1a', accent:'#a0c070' }, // Game 4 — olive
   { bg:'#1f0d2a', border:'#3f1a5a', accent:'#b070d0' }, // Game 5 — plum
   { bg:'#0d1a1f', border:'#1a3f4a', accent:'#70c0d0' }, // Game 6 — slate
-  ,{
-    id: 'game-007', name: 'Doordarshan', letterMs: 90,
-    label: 'DD — Things every Doordarshan generation fan thinks they know',
-    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
-    films: [
-      { film:"In which year did regular daily transmission begin on Doordarshan?",        correct:"1965",                              wrong:"1979",                          trap:"1979 has no specific DD milestone — just feels like the right era" },
-      { film:"India's first soap opera on Doordarshan",                                   correct:"Hum Log",                           wrong:"Ramayan",                        trap:"Ramayan is the iconic DD show but Hum Log aired 3 years earlier in 1984" },
-      { film:"Which actor did NOT appear in the original Mile Sur Mera Tumhara?",         correct:"Rajinikanth",                       wrong:"Kamal Haasan",                   trap:"Both are Tamil superstars of that era — Kamal was actually in it" },
-      { film:"The DD program that featured movie songs from multiple Indian languages",   correct:"Chitramala",                        wrong:"Chitrahar",                      trap:"Chitrahar is the far more famous name — Chitramala is the forgotten sibling" },
-      { film:"Oliyum Oliyum aired on which day?",                                         correct:"Friday",                            wrong:"Sunday",                         trap:"Sunday was Tamil movie day — feels like Oliyum Oliyum's slot" },
-      { film:"Who was the first host of Superhit Muqabla?",                               correct:"Baba Sehgal",                       wrong:"Shah Rukh Khan",                 trap:"SRK hosted later and is the more famous name associated with it" },
-      { film:"Who composed the iconic Doordarshan news signature tune?",                  correct:"Ravi Shankar & Ali Ahmed Hussain Khan", wrong:"Zakir Hussain & R.D. Burman", trap:"Both are era-defining musicians — RD owned that generation's sound" },
-      { film:"How many episodes did Ramayan run for?",                                    correct:"78",                                wrong:"156",                            trap:"156 was Hum Log's episode count — the numbers cross-contaminate in memory" },
-      { film:"Who hosted Quiz Time on Doordarshan?",                                      correct:"Siddhartha Basu",                   wrong:"Derek O'Brien",                  trap:"Derek O'Brien is the other face of Indian quizzing — both blur together" },
-      { film:"Colour TV in India was introduced on Doordarshan during which event?",      correct:"1982 Asian Games",                  wrong:"1983 Cricket World Cup",         trap:"India winning the 1983 World Cup is the more emotionally charged memory" },
-    ]
-  }
+  { bg:'#2a0d1a', border:'#5a1a3a', accent:'#d070a0' }, // Game 7 — burgundy
 ];
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
@@ -547,13 +548,10 @@ function renderPlay(){
       S.t0=performance.now();
       if(dot){
         dot.style.opacity='1';dot.style.animation='none';dot.style.background='#bbb';dot.style.transform='scale(1)';
-        let dotCount=0;
         S.dotTimer=setInterval(()=>{
           const d=document.getElementById('dot');if(!d){clearInterval(S.dotTimer);return;}
-          dotCount++;
           d.style.background='#c9a84c';d.style.transform='scale(1.5)';
           setTimeout(()=>{const d2=document.getElementById('dot');if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}},200);
-          if(dotCount>=3){clearInterval(S.dotTimer);S.dotTimer=null;setTimeout(()=>{const d3=document.getElementById('dot');if(d3)d3.style.opacity='0';},300);}
         },1000);
       }
     }
