@@ -570,7 +570,10 @@ function renderPlay(){
     <div class="title-wrap" style="text-align:center">
       <div class="title-label">${g.name}</div>
       <div style="font-size:36px;margin:0.5rem 0">🎵</div>
-      <div id="audio-status" style="font-size:13px;color:var(--gold);letter-spacing:0.06em;font-weight:600">Loading audio...</div>
+      <div id="audio-status" style="font-size:13px;color:var(--gold);letter-spacing:0.06em;font-weight:600;margin-bottom:0.5rem">Loading audio...</div>
+      <div style="font-size:12px;color:var(--text-light);line-height:1.8">
+        Listen to the BGM — then wait <strong style="color:var(--gold)">${Math.round(q.wait/1000)} seconds</strong> before answering
+      </div>
       <audio id="bgm-player" preload="auto" src="https://cdn.jsdelivr.net/gh/ocosaki/pausemark@main/audio/${q.film}"></audio>
     </div>` : `
     <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>`;
@@ -597,15 +600,15 @@ function renderPlay(){
     const status=document.getElementById('audio-status');
     if(audio){
       audio.addEventListener('canplaythrough',()=>{
-        if(status)status.textContent='▶ Playing...';
+        if(status)status.textContent='▶ Playing BGM...';
         audio.play();
       },{once:true});
       audio.addEventListener('ended',()=>{
-        if(status)status.textContent='✓ Listen done — start counting';
+        if(status)status.textContent='✓ BGM done — now count to '+Math.round(q.wait/1000);
         startCountdown(q);
       },{once:true});
       audio.addEventListener('error',()=>{
-        if(status)status.textContent='Audio error — counting starts now';
+        if(status)status.textContent='Audio error — timer starting now';
         startCountdown(q);
       },{once:true});
     }
