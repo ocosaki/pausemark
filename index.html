@@ -413,12 +413,39 @@ async function sbFetch(path,opts){
   try{return await res.json();}catch(e){return[];}
 }
 async function getScores(gameId){try{const d=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&order=score.desc&limit=50`);return d||[];}catch(e){return[];}}
-async function getAllTimeScores(gameId){try{const d=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&order=score.desc&limit=3`);return d||[];}catch(e){return[];}}
+async function getAllTimeScores(gameId){
+  try{
+    // Get top scores but deduplicate by nick — keep highest score per nick
+    const d=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&order=score.desc&limit=50`);
+    if(!d||!d.length)return[];
+    const seen=new Set();
+    const deduped=d.filter(s=>{if(seen.has(s.nick))return false;seen.add(s.nick);return true;});
+    return deduped.slice(0,3);
+  }catch(e){return[];}
+}
 async function saveScore(gameId,nick,score){
   try{
-    await sbFetch('/rest/v1/scores',{method:'POST',prefer:'return=minimal',headers:{'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({game_id:gameId,nick,score,play_date:todayDate(),ts:Date.now()})});
+    // Check for existing score today
+    const existing=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&nick=eq.${encodeURIComponent(nick)}&limit=1`);
+    if(existing&&existing.length>0){
+      // Only update if new score is better
+      if(score>existing[0].score){
+        await sbFetch(`/rest/v1/scores?id=eq.${existing[0].id}`,{
+          method:'PATCH',
+          headers:{'Prefer':'return=minimal'},
+          body:JSON.stringify({score,ts:Date.now()})
+        });
+      }
+    } else {
+      // No existing score — insert fresh
+      await sbFetch('/rest/v1/scores',{
+        method:'POST',
+        headers:{'Prefer':'return=minimal'},
+        body:JSON.stringify({game_id:gameId,nick,score,play_date:todayDate(),ts:Date.now()})
+      });
+    }
     return await getScores(gameId);
-  }catch(e){try{await sbFetch('/rest/v1/scores',{method:'POST',prefer:'return=minimal',body:JSON.stringify({game_id:gameId,nick,score,play_date:todayDate(),ts:Date.now()})});}catch(e2){}return await getScores(gameId);}
+  }catch(e){return[];}
 }
 async function trackEvent(gameId,eventType){try{await sbFetch('/rest/v1/analytics',{method:'POST',prefer:'return=minimal',body:JSON.stringify({game_id:gameId,event:eventType,play_date:todayDate(),ts:Date.now()})});}catch(e){}}
 
