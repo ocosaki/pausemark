@@ -376,6 +376,23 @@ const GAMES = [
       { film:"9.mp3",  correct:"Sillunu Oru Kadhal",     wrong:"Vinnai Thandi Varuvaya",         trap:"Both romantic AR Rahman",        wait:14000 },
       { film:"10.mp3", correct:"Minnale",                wrong:"7G Rainbow Colony",              trap:"Same era romantic feel",         wait:4000  },
     ]
+  },
+  {
+    id: 'game-009', name: 'Lost in Translation', letterMs: 80,
+    label: 'English words — not as English as you think',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
+    films: [
+      { film:"Which language did the word BEEF come from?",                                        correct:"French",          wrong:"German",            trap:"Feels like a native English word",          detail:"From Old French 'boeuf' meaning ox. The Normans who ruled England ate the meat while the Anglo-Saxons who farmed it kept the word 'cow'." },
+      { film:"Which language did the word ALCOHOL come from?",                                     correct:"Arabic",          wrong:"Latin",             trap:"Feels scientific and Latin",                detail:"From Arabic 'al-kuhl' — originally a fine powder used as eyeliner. Later applied to any purified substance, including spirits." },
+      { film:"KINDERGARTEN literally means what in German?",                                       correct:"Children's garden", wrong:"Child's play",    trap:"Child's play feels more natural",           detail:"Coined by educator Friedrich Fröbel in 1837 — he believed children grew like plants and needed a nurturing garden environment." },
+      { film:"Which language did the word INFLUENZA come from?",                                   correct:"Italian",         wrong:"French",            trap:"Flu feels French somehow",                  detail:"From Italian 'influenza' meaning influence — Italians believed the illness was caused by the influence of stars and cold air." },
+      { film:"The word ROBOT was first used in which language?",                                   correct:"Czech",           wrong:"German",            trap:"Feels mechanical and German",               detail:"From Czech 'robota' meaning forced labour — first used in Karel Čapek's 1920 play R.U.R. about artificial workers." },
+      { film:"Which language did MOSQUITO come from, meaning 'little fly'?",                       correct:"Spanish",         wrong:"Italian",           trap:"Both feel equally Mediterranean",           detail:"From Spanish 'mosquito' — a diminutive of 'mosca' meaning fly. Brought into English through Spanish colonial contact." },
+      { film:"Which language did the word ALGEBRA come from?",                                     correct:"Arabic",          wrong:"Greek",             trap:"Maths feels Greek",                         detail:"From Arabic 'al-jabr' meaning the reunion of broken parts — from 9th century mathematician Al-Khwarizmi's famous treatise." },
+      { film:"Which language did the word SOUVENIR come from?",                                    correct:"French",          wrong:"Italian",           trap:"Both feel equally romantic",                detail:"From French 'souvenir' meaning to remember — itself from Latin 'subvenire' meaning to come to mind." },
+      { film:"Which language gave us the word TYCOON?",                                            correct:"Japanese",        wrong:"Chinese",           trap:"Chinese feels more associated with business", detail:"From Japanese 'taikun' meaning great lord — used by Americans to describe the Shogun and later applied to powerful businessmen." },
+      { film:"The word MAVERICK meaning an independent person is named after?",                    correct:"A real person",   wrong:"A fictional character", trap:"Maverick sounds like a movie character",detail:"Samuel Maverick was a Texas rancher in the 1800s who refused to brand his cattle — his unbranded cattle became known as mavericks." },
+    ]
   }
 ];
 
@@ -388,6 +405,7 @@ const GAME_COLORS = [
   { bg:'#0d1a1f', border:'#1a3f4a', accent:'#70c0d0' }, // Game 6 — slate
   { bg:'#2a0d1a', border:'#5a1a3a', accent:'#d070a0' }, // Game 7 — burgundy
   { bg:'#1a1505', border:'#4a3a10', accent:'#d4a843' }, // Game 8 — cinema gold
+  { bg:'#0a1a0a', border:'#1a4a1a', accent:'#70d070' }, // Game 9 — green
 ];
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
@@ -682,15 +700,17 @@ function onTap(name,btn){
   const pip=document.getElementById('p'+S.cur);if(pip)pip.className='pip'+(early?' ep':correct?' ok':' bad');
   btn.className='choice-btn '+(early?'early':correct?'correct':'wrong');
   const fb=document.getElementById('fb');
-  if(early){fb.innerHTML='Too early — tapped at '+eS+'s, needed '+tS+'s. Forfeit. <strong>0 pts</strong><br><span style="font-size:11px;color:#aaa">Answer: '+q.correct+'</span>';fb.className='feedback et';}
-  else if(!correct){fb.innerHTML='Wrong — correct answer was <strong>'+q.correct+'</strong>. 0 pts';fb.className='feedback bad';}
-  else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg;fb.className='feedback good';}
+  const detailHtml=q.detail?`<div style="margin-top:0.75rem;font-size:12px;color:var(--ink-2);line-height:1.8;background:var(--cream-2);border-left:3px solid var(--gold);padding:0.6rem 0.75rem;border-radius:0 6px 6px 0;font-style:italic">${q.detail}</div>`:'';
+  if(early){fb.innerHTML='Too early — tapped at '+eS+'s, needed '+tS+'s. Forfeit. <strong>0 pts</strong><br><span style="font-size:11px;color:#aaa">Answer: '+q.correct+'</span>'+detailHtml;fb.className='feedback et';}
+  else if(!correct){fb.innerHTML='Wrong — correct answer was <strong>'+q.correct+'</strong>. 0 pts'+detailHtml;fb.className='feedback bad';}
+  else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg+detailHtml;fb.className='feedback good';}
   S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
   S.cur++;
+  const roundDelay = q.detail ? 6000 : 2000;
   if(S.cur<10){
-    setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},2000);
+    setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},roundDelay);
   } else {
-    trackEvent(GAMES[S.gi].id,'complete');setTimeout(()=>finishGame(),2000);
+    trackEvent(GAMES[S.gi].id,'complete');setTimeout(()=>finishGame(),roundDelay);
   }
 }
 
