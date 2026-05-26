@@ -544,6 +544,7 @@ function startCountdown(q){
   const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
   const sc=document.getElementById('sc');
   if(sc){sc.style.opacity='1';setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
+  const cw=document.getElementById('cw');if(cw)cw.style.opacity='1';
   const dot=document.getElementById('dot');
   S.t0=performance.now();
   if(dot){
@@ -588,7 +589,7 @@ function renderPlay(){
     <div style="text-align:center;font-size:14px;color:#fff;font-weight:700;letter-spacing:0.12em;min-height:24px;margin-bottom:0.75rem;opacity:0;transition:opacity 0.5s;background:var(--gold);padding:6px 16px;border-radius:20px;display:inline-block;width:auto;margin-left:auto;margin-right:auto;" id="sc">⏱ NOW — START COUNTING</div>
     <div class="answer-label">${g.answerLabel}</div>
     <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
-    <div class="choices" id="cw">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
+    <div class="choices" id="cw" style="opacity:0;transition:opacity 0.4s">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
   document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
 
