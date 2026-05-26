@@ -359,6 +359,23 @@ const GAMES = [
       { film:"Who hosted Quiz Time on Doordarshan?",                                     correct:"Siddhartha Basu",                       wrong:"Derek O'Brien",              trap:"Derek O'Brien is the other face of Indian quizzing — both blur together" },
       { film:"Colour TV in India was introduced on Doordarshan during which event?",     correct:"1982 Asian Games",                      wrong:"1983 Cricket World Cup",     trap:"India winning the 1983 World Cup is the more emotionally charged memory" },
     ]
+  },
+  {
+    id: 'game-008', name: 'CinemaPaattu', type: 'audio', letterMs: 0,
+    label: 'Tamil Cinema BGM — Listen and identify the correct film',
+    goal: 'Listen to the music and identify the correct film', answerLabel: 'WHICH FILM IS THIS SONG FROM?',
+    films: [
+      { film:"1.mp3",  correct:"Anniyan",               wrong:"Saami",                          trap:"Both Harris Jayaraj films",     wait:8000  },
+      { film:"2.mp3",  correct:"Bigil",                  wrong:"Mariyaan",                       trap:"Both AR Rahman films",           wait:3000  },
+      { film:"3.mp3",  correct:"Kadhal Koattai",         wrong:"Baasha",                         trap:"Same era different feel",        wait:6000  },
+      { film:"4.mp3",  correct:"Run",                    wrong:"Alaipayuthe",                    trap:"Both Yuvan films",               wait:4000  },
+      { film:"5.mp3",  correct:"ThangaMagan",            wrong:"VIP",                            trap:"Both Anirudh Dhanush films",     wait:10000 },
+      { film:"6.mp3",  correct:"Rummy",                  wrong:"Varuthappadatha Valibar Sangam", trap:"Both Imman films",               wait:8000  },
+      { film:"7.mp3",  correct:"Naan Kadavul",           wrong:"Viduthalai",                     trap:"Same raw tone",                  wait:5000  },
+      { film:"8.mp3",  correct:"Thandavam",              wrong:"Dhaam Dhoom",                    trap:"Both Vijay Antony films",        wait:7000  },
+      { film:"9.mp3",  correct:"Sillunu Oru Kadhal",     wrong:"Vinnai Thandi Varuvaya",         trap:"Both romantic AR Rahman",        wait:14000 },
+      { film:"10.mp3", correct:"Minnale",                wrong:"7G Rainbow Colony",              trap:"Same era romantic feel",         wait:4000  },
+    ]
   }
 ];
 
@@ -370,6 +387,7 @@ const GAME_COLORS = [
   { bg:'#1f0d2a', border:'#3f1a5a', accent:'#b070d0' }, // Game 5 — plum
   { bg:'#0d1a1f', border:'#1a3f4a', accent:'#70c0d0' }, // Game 6 — slate
   { bg:'#2a0d1a', border:'#5a1a3a', accent:'#d070a0' }, // Game 7 — burgundy
+  { bg:'#1a1505', border:'#4a3a10', accent:'#d4a843' }, // Game 8 — cinema gold
 ];
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
@@ -379,7 +397,14 @@ const SUPABASE_KEY='sb_publishable_uu4F6F9j-2dhLtlordq8Dw_nplV6zhH';
 function todayLabel(){return new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 function todayDate(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function ssh(arr,seed){let a=[...arr],s=seed;for(let i=a.length-1;i>0;i--){s=(s*1664525+1013904223)&0xffffffff;const j=Math.abs(s)%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
-function buildDeck(g){const seed=g.id.split('').reduce((s,c)=>s+c.charCodeAt(0),0);const sw=ssh([...WAITS],seed);return ssh(g.films,seed).map((f,i)=>({...f,wait:sw[i]*1000}));}
+function buildDeck(g){
+  const seed=g.id.split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+  const sw=ssh([...WAITS],seed);
+  return ssh(g.films,seed).map((f,i)=>({
+    ...f,
+    wait: f.wait !== undefined ? f.wait : sw[i]*1000
+  }));
+}
 function calcPts(correct,early,delta){if(!correct||early)return 0;if(delta<=0)return 10;return Math.max(0,10-Math.floor(delta));}
 
 async function sbFetch(path,opts){
@@ -486,7 +511,7 @@ function renderNick(){
     <div class="game-label">${g.label}</div>
     <div class="rules-card">
       <div class="rules-philosophy"><strong>PauseMark</strong> is not just a quiz.<br>Most games reward the fastest finger. This one doesn't.<br>Here, the right answer at the wrong moment is worth nothing.<br>You'll learn to hold — to wait — to act only when it's time.<br>That's the mark.</div>
-      <div class="rules-mechanics">Each round shows a question — revealed one letter at a time — and two options. Pick the right one.<br><br>Every round has a <strong>minimum wait time</strong> shown on screen. Tap before it and you score nothing, regardless of whether your answer is right.<br><br>Wait too long past it and you start losing points. The sweet spot is the point — not too early, not too late.</div>
+      <div class="rules-mechanics">${g.type==='audio'?`A BGM clip plays automatically. Listen carefully — no controls, no replay.<br><br>When the clip ends, <strong>"NOW — START COUNTING"</strong> appears. That's when your wait begins.<br><br>Wait the required seconds, then pick the correct film. Tap too early and you score nothing.`:`Each round shows a question — revealed one letter at a time — and two options. Pick the right one.<br><br>Every round has a <strong>minimum wait time</strong> shown on screen. Tap before it and you score nothing, regardless of whether your answer is right.<br><br>Wait too long past it and you start losing points. The sweet spot is the point — not too early, not too late.`}</div>
       <table class="rules-table">
         <thead><tr><th>Outcome</th><th>Points</th></tr></thead>
         <tbody>
@@ -515,16 +540,46 @@ function renderNick(){
   inp.focus();
 }
 
+function startCountdown(q){
+  const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
+  const sc=document.getElementById('sc');
+  if(sc){sc.style.opacity='1';setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
+  const dot=document.getElementById('dot');
+  S.t0=performance.now();
+  if(dot){
+    dot.style.opacity='1';dot.style.animation='none';dot.style.background='#bbb';dot.style.transform='scale(1)';
+    let dotCount=0;
+    S.dotTimer=setInterval(()=>{
+      const d=document.getElementById('dot');if(!d){clearInterval(S.dotTimer);return;}
+      dotCount++;
+      d.style.background='#c9a84c';d.style.transform='scale(1.5)';
+      setTimeout(()=>{const d2=document.getElementById('dot');if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}},200);
+      if(dotCount>=3){clearInterval(S.dotTimer);S.dotTimer=null;setTimeout(()=>{const d3=document.getElementById('dot');if(d3)d3.style.opacity='0';},300);}
+    },1000);
+  }
+}
+
 function renderPlay(){
   const g=GAMES[S.gi],q=S.deck[S.cur];
+  const isAudio=g.type==='audio';
   let pips='';
   for(let i=0;i<10;i++){const r=S.res[i];let c='pip';if(i<S.cur)c+=r.early?' ep':r.right?' ok':' bad';else if(i===S.cur)c+=' active';pips+=`<div class="${c}" id="p${i}"></div>`;}
-  const opts=ssh([q.correct,q.wrong],q.film.charCodeAt(0)+S.cur*13);
+  const opts=ssh([q.correct,q.wrong],q.correct.charCodeAt(0)+S.cur*13);
+
+  const titleBlock = isAudio ? `
+    <div class="title-wrap" style="text-align:center">
+      <div class="title-label">${g.name}</div>
+      <div style="font-size:36px;margin:0.5rem 0">🎵</div>
+      <div id="audio-status" style="font-size:13px;color:var(--gold);letter-spacing:0.06em;font-weight:600">Loading audio...</div>
+      <audio id="bgm-player" preload="auto" src="https://cdn.jsdelivr.net/gh/ocosaki/pausemark@main/audio/${q.film}"></audio>
+    </div>` : `
+    <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>`;
+
   document.getElementById('gp').innerHTML=`
     <div class="score-row"><div class="score-total"><strong id="sv">${S.total}</strong> pts</div><div class="round-flash" id="rf" style="opacity:0"></div></div>
     <div class="progress-line">${pips}</div>
     <div class="goal-line">Goal : ${g.goal}</div>
-    <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>
+    ${titleBlock}
     <div class="trap-hint" id="th"></div>
     <div class="wait-inst" id="wi">Wait <span class="wait-num">${Math.round(q.wait/1000)}</span> seconds</div>
     <div style="text-align:center;font-size:14px;color:#fff;font-weight:700;letter-spacing:0.12em;min-height:24px;margin-bottom:0.75rem;opacity:0;transition:opacity 0.5s;background:var(--gold);padding:6px 16px;border-radius:20px;display:inline-block;width:auto;margin-left:auto;margin-right:auto;" id="sc">⏱ NOW — START COUNTING</div>
@@ -533,32 +588,38 @@ function renderPlay(){
     <div class="choices" id="cw">${opts.map(n=>`<button class="choice-btn" data-n="${n}">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
   document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
+
   S.li=0;S.t0=0;S.tgt=q.wait;
   if(S.rt)clearInterval(S.rt);
-  S.rt=setInterval(()=>{
-    const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}
-    if(S.li<=q.film.length){el.textContent=q.film.slice(0,S.li++);}
-    else{
-      clearInterval(S.rt);
-      const c=document.getElementById('cb');if(c)c.style.display='none';
-      const wi=document.getElementById('wi');if(wi)wi.style.opacity='1';
-      const sc=document.getElementById('sc');
-      if(sc){sc.style.opacity='1';setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
-      const dot=document.getElementById('dot');
-      S.t0=performance.now();
-      if(dot){
-        dot.style.opacity='1';dot.style.animation='none';dot.style.background='#bbb';dot.style.transform='scale(1)';
-        let dotCount=0;
-        S.dotTimer=setInterval(()=>{
-          const d=document.getElementById('dot');if(!d){clearInterval(S.dotTimer);return;}
-          dotCount++;
-          d.style.background='#c9a84c';d.style.transform='scale(1.5)';
-          setTimeout(()=>{const d2=document.getElementById('dot');if(d2){d2.style.background='#bbb';d2.style.transform='scale(1)';}},200);
-          if(dotCount>=3){clearInterval(S.dotTimer);S.dotTimer=null;setTimeout(()=>{const d3=document.getElementById('dot');if(d3)d3.style.opacity='0';},300);}
-        },1000);
-      }
+
+  if(isAudio){
+    const audio=document.getElementById('bgm-player');
+    const status=document.getElementById('audio-status');
+    if(audio){
+      audio.addEventListener('canplaythrough',()=>{
+        if(status)status.textContent='▶ Playing...';
+        audio.play();
+      },{once:true});
+      audio.addEventListener('ended',()=>{
+        if(status)status.textContent='✓ Listen done — start counting';
+        startCountdown(q);
+      },{once:true});
+      audio.addEventListener('error',()=>{
+        if(status)status.textContent='Audio error — counting starts now';
+        startCountdown(q);
+      },{once:true});
     }
-  },g.letterMs);
+  } else {
+    S.rt=setInterval(()=>{
+      const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}
+      if(S.li<=q.film.length){el.textContent=q.film.slice(0,S.li++);}
+      else{
+        clearInterval(S.rt);
+        const c=document.getElementById('cb');if(c)c.style.display='none';
+        startCountdown(q);
+      }
+    },g.letterMs);
+  }
 }
 
 function onTap(name,btn){
@@ -568,6 +629,8 @@ function onTap(name,btn){
   const eS=(elapsed/1000).toFixed(1),tS=Math.round(S.tgt/1000);
   if(S.rt)clearInterval(S.rt);
   if(S.dotTimer){clearInterval(S.dotTimer);S.dotTimer=null;}
+  // Stop audio if playing
+  const audioEl=document.getElementById('bgm-player');if(audioEl){audioEl.pause();audioEl.currentTime=0;}
   const rt=document.getElementById('rt');if(rt)rt.textContent=q.film;
   const cb=document.getElementById('cb');if(cb)cb.style.display='none';
   const th=document.getElementById('th');if(th)th.textContent='trap: '+q.trap;
@@ -620,11 +683,13 @@ function renderResult(sc){
         }).join('')}
       </div>
     </div>`;
-  const rows=S.res.map(r=>{
+  const rows=S.res.map((r,ri)=>{
     const tS=Math.round(r.target/1000),eS=(r.elapsed/1000).toFixed(1);
     const pc=r.p===10?'#1d9e60':r.p>0?'#c07820':'#c0392b';
     const st=r.early?`<span style="color:#c07820">early</span>`:r.right?`<span style="color:#1d9e60">✓</span>`:`<span style="color:#c0392b">✗</span>`;
-    return`<tr><td>${r.film}</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${tS}s</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${eS}s</td><td style="font-family:'DM Mono',monospace;color:${pc};font-weight:600">${r.p}</td><td>${st}</td></tr>`;
+    const isAudio=GAMES[S.gi].type==='audio';
+    const label=isAudio?`BGM ${ri+1} — ${r.correct}`:r.film;
+    return`<tr><td>${label}</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${tS}s</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${eS}s</td><td style="font-family:'DM Mono',monospace;color:${pc};font-weight:600">${r.p}</td><td>${st}</td></tr>`;
   }).join('');
   document.getElementById('gp').innerHTML=`
     <div class="result-big">${S.total}</div>
