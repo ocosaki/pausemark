@@ -393,6 +393,23 @@ const GAMES = [
       { film:"Which language gave us the word TYCOON?",                                            correct:"Japanese",        wrong:"Chinese",           trap:"Chinese feels more associated with business", detail:"From Japanese 'taikun' meaning great lord — used by Americans to describe the Shogun and later applied to powerful businessmen." },
       { film:"Which language did the word SALARY come from?",                                      correct:"Latin",           wrong:"French",            trap:"Sounds French somehow",                     detail:"From Latin 'salarium' — Roman soldiers were sometimes paid in salt, one of the most valuable commodities of the ancient world. Salt and salary share the same root." },
     ]
+  },
+  {
+    id: 'game-010', name: 'Indian States', letterMs: 85,
+    label: 'Indian States — things you think you know but might not',
+    goal: 'Pick the correct answer', answerLabel: 'WHICH STATE?',
+    films: [
+      { film:"Which of these was a Union Territory before becoming a state?",          correct:"Himachal Pradesh", wrong:"Meghalaya",       trap:"Meghalaya feels like it could have been a UT",     detail:"Himachal Pradesh was a Union Territory from 1956 and attained full statehood only in 1971. Meghalaya was never a UT — it was carved out of Assam directly as a state in 1972." },
+      { film:"Which is the largest state in India by area?",                           correct:"Rajasthan",        wrong:"Madhya Pradesh",  trap:"MP is in the centre — feels biggest",              detail:"Rajasthan covers 342,239 sq km — about 10.4% of India's total area. Madhya Pradesh is a close second at 308,252 sq km, which is why the confusion is so common." },
+      { film:"Which state has the longest coastline in India?",                        correct:"Gujarat",          wrong:"Andhra Pradesh",  trap:"Andhra has a long east coast",                     detail:"Gujarat's coastline stretches 1,600 km — the longest of any Indian state. Its irregular shape with the Gulf of Kutch and Gulf of Khambhat adds significantly to its coastal length." },
+      { film:"Which state produces the most coffee in India?",                         correct:"Karnataka",        wrong:"Tamil Nadu",       trap:"Tamil Nadu has famous hill stations",               detail:"Karnataka produces over 70% of India's coffee — primarily in Coorg, Chikmagalur, and Hassan. Tamil Nadu is also a coffee-growing state but a distant second." },
+      { film:"Which is the smallest state in India by area?",                          correct:"Goa",              wrong:"Sikkim",          trap:"Sikkim feels tiny and remote",                     detail:"Goa covers just 3,702 sq km — the smallest state by area. Sikkim is the second smallest at 7,096 sq km and also the least populous, which is why the two are often confused." },
+      { film:"Which state has the highest literacy rate in India?",                    correct:"Kerala",           wrong:"Mizoram",         trap:"Mizoram is genuinely second — close trap",         detail:"Kerala has a literacy rate of over 96% — the highest in India. Mizoram is second at around 91%, making it a genuinely close and credible wrong option." },
+      { film:"Which state is the largest producer of silk in India?",                  correct:"Karnataka",        wrong:"West Bengal",     trap:"Murshidabad silk is famous",                       detail:"Karnataka produces over 70% of India's silk, particularly mulberry silk. West Bengal is associated with silk through Murshidabad's famous tradition — which is why it feels like the right answer." },
+      { film:"Which state has the most number of districts in India?",                 correct:"Uttar Pradesh",    wrong:"Maharashtra",     trap:"Maharashtra feels complex and large",               detail:"Uttar Pradesh has 75 districts — the most of any state. Maharashtra has 36, which feels substantial but is nowhere near UP's count." },
+      { film:"Which state shares borders with the most other states?",                 correct:"Uttar Pradesh",    wrong:"Madhya Pradesh",  trap:"MP is literally in the centre of India",           detail:"Uttar Pradesh borders 8 states plus Delhi — the most of any state. Madhya Pradesh is literally in the centre of India but borders only 5 states, making it the perfect trap." },
+      { film:"Which state has the longest international border in India?",             correct:"West Bengal",      wrong:"Rajasthan",       trap:"Rajasthan is the largest state and borders Pakistan", detail:"West Bengal shares a 2,217 km border with Bangladesh — the longest international border of any Indian state. Rajasthan feels like the answer because it's the largest state and borders Pakistan." },
+    ]
   }
 ];
 
@@ -406,6 +423,7 @@ const GAME_COLORS = [
   { bg:'#2a0d1a', border:'#5a1a3a', accent:'#d070a0' }, // Game 7 — burgundy
   { bg:'#1a1505', border:'#4a3a10', accent:'#d4a843' }, // Game 8 — cinema gold
   { bg:'#0a1a0a', border:'#1a4a1a', accent:'#70d070' }, // Game 9 — green
+  { bg:'#0a0a1a', border:'#1a1a4a', accent:'#7070d0' }, // Game 10 — indigo
 ];
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
