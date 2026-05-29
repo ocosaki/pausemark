@@ -410,6 +410,23 @@ const GAMES = [
       { film:"Which state shares borders with the most other states?",                 correct:"Uttar Pradesh",    wrong:"Madhya Pradesh",  trap:"MP is literally in the centre of India",           detail:"Uttar Pradesh borders 8 states plus Delhi — the most of any state. Madhya Pradesh is literally in the centre of India but borders only 5 states, making it the perfect trap." },
       { film:"Which state has the longest international border in India?",             correct:"West Bengal",      wrong:"Rajasthan",       trap:"Rajasthan is the largest state and borders Pakistan", detail:"West Bengal shares a 2,217 km border with Bangladesh — the longest international border of any Indian state. Rajasthan feels like the answer because it's the largest state and borders Pakistan." },
     ]
+  },
+  {
+    id: 'game-011', name: 'A Colourful Life', letterMs: 90,
+    label: 'Colours — not everything is what it appears',
+    goal: 'Pick the correct colour', answerLabel: 'WHAT COLOUR?',
+    films: [
+      { film:"What colour is the skin beneath a zebra's stripes?",                  correct:"Black",   wrong:"White",  trap:"White feels like the base coat",           detail:"Zebras have entirely black skin underneath. The white stripes are the addition — not the base. The black skin may help with heat regulation and UV protection." },
+      { film:"What colour is the Air India tail fin?",                              correct:"Red",     wrong:"Orange", trap:"Orange Konark Chakra and speed lines confuse", detail:"The tail fin has always been red — from the centaur era to the flying swan to the current Vista logo. The confusion comes from the orange Konark Chakra and orange speed lines on the fuselage." },
+      { film:"What colour is the blood of an octopus?",                             correct:"Blue",    wrong:"Red",    trap:"All blood feels red",                      detail:"Octopus blood contains hemocyanin — a copper-based protein — instead of hemoglobin. Copper turns blue when it binds with oxygen, which is why octopus blood is blue." },
+      { film:"What colour is a polar bear's skin?",                                 correct:"Black",   wrong:"White",  trap:"Polar bears look white so skin must be too", detail:"Polar bear fur is actually transparent — it only appears white because of light scattering. Underneath, the skin is jet black to absorb as much heat from the sun as possible." },
+      { film:"What colour is the black box in an airplane?",                        correct:"Orange",  wrong:"Black",  trap:"It's called the black box",                detail:"The name is misleading — black boxes have always been bright orange for high visibility in crash sites. The 'black' in the name likely comes from early casings or the dark interior of the recording unit." },
+      { film:"What colour are carrots originally — before the Dutch bred them orange?", correct:"Purple", wrong:"Yellow", trap:"Yellow feels like a natural carrot colour", detail:"Carrots were purple for thousands of years, originating in Persia. Dutch farmers in the 17th century selectively bred the orange variety — possibly to honour William of Orange." },
+      { film:"What colour is the sun if you saw it from space?",                    correct:"White",   wrong:"Yellow", trap:"The sun looks yellow from Earth",           detail:"The sun emits all colours of light in roughly equal amounts — which makes it white. It appears yellow on Earth because our atmosphere scatters away the blue and violet wavelengths." },
+      { film:"What colour is the milk produced by a hippopotamus?",                 correct:"White",   wrong:"Pink",   trap:"The blood sweat myth made it feel pink",    detail:"Hippo milk is white like all mammal milk. The pink myth comes from the hippo's 'blood sweat' — a red skin secretion that acts as sunscreen. The two are completely unrelated." },
+      { film:"What colour is a giraffe's tongue?",                                  correct:"Purple",  wrong:"Pink",   trap:"Tongues feel pink",                        detail:"Giraffe tongues are dark blue-purple due to high melanin concentration. This protects them from sunburn — giraffes spend up to 12 hours a day feeding with their tongues exposed to the African sun." },
+      { film:"What colour are the stars on the Chinese flag?",                      correct:"Yellow",  wrong:"White",  trap:"Stars on flags often feel white",           detail:"The Chinese flag has a red background with one large yellow star and four smaller yellow stars. The yellow represents the golden future and the Chinese people." },
+    ]
   }
 ];
 
@@ -424,7 +441,9 @@ const GAME_COLORS = [
   { bg:'#1a1505', border:'#4a3a10', accent:'#d4a843' }, // Game 8 — cinema gold
   { bg:'#0a1a0a', border:'#1a4a1a', accent:'#70d070' }, // Game 9 — green
   { bg:'#0a0a1a', border:'#1a1a4a', accent:'#7070d0' }, // Game 10 — indigo
+  { bg:'#1a0a05', border:'#4a2a10', accent:'#e09050' }, // Game 11 — amber
 ];
+
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
 const OCO_URL='https://orucupoxygen.com';
 const SUPABASE_URL='https://sispafahqsifckrnykaa.supabase.co';
