@@ -480,10 +480,8 @@ async function getAllTimeScores(gameId){
 }
 async function saveScore(gameId,nick,score){
   try{
-    // Check for existing score today
     const existing=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(gameId)}&play_date=eq.${todayDate()}&nick=eq.${encodeURIComponent(nick)}&limit=1`);
     if(existing&&existing.length>0){
-      // Only update if new score is better
       if(score>existing[0].score){
         await sbFetch(`/rest/v1/scores?id=eq.${existing[0].id}`,{
           method:'PATCH',
@@ -492,7 +490,6 @@ async function saveScore(gameId,nick,score){
         });
       }
     } else {
-      // No existing score — insert fresh
       await sbFetch('/rest/v1/scores',{
         method:'POST',
         headers:{'Prefer':'return=minimal'},
@@ -743,10 +740,6 @@ function onTap(name,btn){
   else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg+detailHtml;fb.className='feedback good';}
   S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
   S.cur++;
-  // Save running score after every question — captures partial scores if player drops off
-  saveScore(GAMES[S.gi].id, S.nick, S.total).then(sc=>{
-    if(sc) getAllTimeScores(GAMES[S.gi].id).then(at=>renderLB(sc, at, S.nick));
-  });
   const roundDelay = q.detail ? 6000 : 2000;
   if(S.cur<10){
     setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},roundDelay);
