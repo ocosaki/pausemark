@@ -444,6 +444,23 @@ const GAMES = [
       { film:"Hero who has acted in a negative shade in a Rajinikanth movie?",                                       correct:"Sivakumar",   wrong:"Prabhu",        trap:"Prabhu and Rajini have acted together" },
       { film:"Villain who started his movie career as a hero?",                                                      correct:"Raghuvaran",  wrong:"Anandraj",      trap:"Anandraj feels like he was always a villain" },
     ]
+  },
+  {
+    id: 'game-013', name: 'Human Body', letterMs: 85,
+    label: 'Your body — things you never knew about yourself',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT IS THE ANSWER?',
+    films: [
+      { film:"Which part of your body has more bones?",                                correct:"Hand",               wrong:"Foot",                     trap:"Foot feels bigger and more complex",          detail:"The human hand has 27 bones while the foot has 26 — almost a quarter of all your bones are in your two hands." },
+      { film:"Which is the strongest muscle in the human body relative to its size?",  correct:"Jaw muscle (Masseter)", wrong:"Calf muscle (Gastrocnemius)", trap:"Calf feels like it does the most work",     detail:"The masseter can close teeth with a force of up to 200 pounds on the molars — the most powerful muscle relative to its size." },
+      { film:"Which is harder?",                                                        correct:"Tooth enamel",       wrong:"Bone",                     trap:"Bone feels tougher because it doesn't chip",  detail:"Tooth enamel scores 5 on the Mohs hardness scale — harder than steel — while bone scores only 3.5." },
+      { film:"Which organ can completely regenerate itself?",                           correct:"Liver",              wrong:"Kidney",                   trap:"Kidney feels more resilient",                 detail:"As little as 25% of the liver can regenerate back into a whole liver — the only internal organ capable of this." },
+      { film:"Which part of the eye has no blood supply?",                             correct:"Cornea",             wrong:"Retina",                   trap:"Retina feels more delicate and avascular",    detail:"The cornea has no blood vessels and gets its oxygen directly from the air — which is why extended contact lens use can cause problems." },
+      { film:"Which sense is the first to develop in a human embryo?",                 correct:"Touch",              wrong:"Hearing",                  trap:"Hearing feels like the first sense in the womb", detail:"Touch develops at around 8 weeks — sight is the last, continuing to develop even after birth." },
+      { film:"Which is the only bone in the body not connected to another bone?",      correct:"Throat bone (Hyoid)", wrong:"Kneecap (Patella)",       trap:"Kneecap feels like it floats freely",         detail:"The hyoid bone floats freely in the throat, held only by muscles and ligaments — no bone-to-bone connection anywhere." },
+      { film:"Which happens more often in a lifetime?",                                correct:"Your heart beats",   wrong:"You take breaths",         trap:"Breathing feels constant and relentless",     detail:"The heart beats about 2.5 billion times in a lifetime — nearly 4 times for every single breath you take." },
+      { film:"Which is larger by weight — your liver or your brain?",                  correct:"Liver",              wrong:"Brain",                    trap:"Brain feels like the most dominant organ",    detail:"The liver weighs about 1.5 kg versus the brain's 1.4 kg — making it both the heaviest and largest internal organ." },
+      { film:"The human eye can distinguish approximately how many colours?",          correct:"10 million",         wrong:"100,000",                  trap:"100,000 feels like a large enough number",    detail:"The human eye can distinguish about 10 million colours — far more than any screen can display." },
+    ]
   }
 ];
 
@@ -460,6 +477,7 @@ const GAME_COLORS = [
   { bg:'#0a0a1a', border:'#1a1a4a', accent:'#7070d0' }, // Game 10 — indigo
   { bg:'#1a0a05', border:'#4a2a10', accent:'#e09050' }, // Game 11 — amber
   { bg:'#0f0a0a', border:'#3a1010', accent:'#c03030' }, // Game 12 — dark red
+  { bg:'#0a1a1a', border:'#104040', accent:'#40c0c0' }, // Game 13 — cyan
 ];
 
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
