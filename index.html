@@ -461,6 +461,23 @@ const GAMES = [
       { film:"Which is larger by weight — your liver or your brain?",                  correct:"Liver",              wrong:"Brain",                    trap:"Brain feels like the most dominant organ",    detail:"The liver weighs about 1.5 kg versus the brain's 1.4 kg — making it both the heaviest and largest internal organ." },
       { film:"The human eye can distinguish approximately how many colours?",          correct:"10 million",         wrong:"100,000",                  trap:"100,000 feels like a large enough number",    detail:"The human eye can distinguish about 10 million colours — far more than any screen can display." },
     ]
+  },
+  {
+    id: 'game-014', name: 'Animal Names', letterMs: 85,
+    label: 'The surprising origins of animal names',
+    goal: 'Pick the correct answer', answerLabel: 'WHAT DOES IT MEAN?',
+    films: [
+      { film:"'Ceros' means Horn in Greek. What does Rhino in a Rhinoceros mean?",                                    correct:"Nose",            wrong:"One",           trap:"One horn feels right for a rhino",             detail:"Rhino means nose — so Rhinoceros literally means nose horn. The same root 'ceros' appears in Triceratops — three horns." },
+      { film:"Hippopotamus literally means what in Greek?",                                                            correct:"River horse",     wrong:"Water pig",     trap:"Hippo looks more like a pig than a horse",     detail:"Hippos means horse and potamos means river in Greek. The same root appears in Hippocampus — the seahorse-shaped part of the brain." },
+      { film:"Gorilla comes from Greek meaning what?",                                                                 correct:"Tribe of hairy women", wrong:"Large ape", trap:"Large ape feels like the obvious meaning",    detail:"Carthaginian explorer Hanno the Navigator used the word around 500 BC for hairy beings he encountered in Africa. In 1847 a missionary applied it to the ape." },
+      { film:"The word Penguin comes from the Welsh words 'pen' and 'gwyn'. What does it mean?",                      correct:"White head",      wrong:"Intelligent fish", trap:"Intelligent fish is amusingly plausible",  detail:"Pen means head and gwyn means white. The name originally referred to the now-extinct Great Auk — before being transferred to the penguins we know today." },
+      { film:"Spanish explorers called this animal 'el lagarto' which became Alligator. What does it literally mean?", correct:"The lizard",     wrong:"The monster",   trap:"Monster feels more fitting for an alligator",  detail:"El lagarto de Indias meant the lizard of the Indies. Over time the definite article el merged with lagarto to form the word alligator." },
+      { film:"Orangutan comes from Malay meaning what?",                                                               correct:"Person of the forest", wrong:"Red ape", trap:"Red ape feels like the obvious description",  detail:"Orang means person and hutan means forest in Malay. The word goes back over a thousand years in Old Javanese texts — long before Europeans arrived." },
+      { film:"Flamingo comes from Portuguese/Spanish meaning what?",                                                   correct:"Flame",           wrong:"Pink",          trap:"Pink feels like the obvious flamingo colour",  detail:"From flama meaning flame — Spanish explorers named it for the vivid red-orange colour visible when a flamingo spreads its wings. At rest the bird looks far paler." },
+      { film:"Crocodile comes from Greek meaning what?",                                                               correct:"Pebble worm",     wrong:"River monster", trap:"River monster feels more dramatic and apt",    detail:"From kroke meaning pebble and drilos meaning worm. Greeks applied the name to lizards basking on pebbly riverbanks — then transferred it to the Nile crocodile." },
+      { film:"'Porcus' means pig and 'spina' means spine in Latin. What does Porcupine literally mean?",              correct:"Spiny pig",       wrong:"Spiky rat",     trap:"Spiky rat feels like the obvious description", detail:"From the Old French porc-espin — literally thorn pig. A regional American name for the porcupine is still quill pig — keeping the pig connection alive." },
+      { film:"Chimpanzee comes from Tshiluba meaning what?",                                                           correct:"Mock man",        wrong:"Forest dweller", trap:"Forest dweller feels like the natural meaning", detail:"From the Tshiluba term kivili-chimpenze — the people of Congo perceived the chimpanzee as mimicking human behaviour. The word entered English in 1738." },
+    ]
   }
 ];
 
@@ -478,6 +495,7 @@ const GAME_COLORS = [
   { bg:'#1a0a05', border:'#4a2a10', accent:'#e09050' }, // Game 11 — amber
   { bg:'#0f0a0a', border:'#3a1010', accent:'#c03030' }, // Game 12 — dark red
   { bg:'#0a1a1a', border:'#104040', accent:'#40c0c0' }, // Game 13 — cyan
+  { bg:'#0a0f1a', border:'#102040', accent:'#5080d0' }, // Game 14 — deep blue
 ];
 
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
@@ -776,7 +794,7 @@ function onTap(name,btn){
   else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg+detailHtml;fb.className='feedback good';}
   S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
   S.cur++;
-  const roundDelay = q.detail ? 6000 : 2000;
+  const roundDelay = q.detail ? 8000 : 2000;
   if(S.cur<10){
     setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},roundDelay);
   } else {
