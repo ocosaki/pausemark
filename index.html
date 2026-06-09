@@ -849,7 +849,8 @@ function renderResult(sc){
   const inTop10=rank>=1&&rank<=10;
   const{msg,sub}=getRankMessage(rank);
   const gameName=GAMES[S.gi].name;
-  const shareText=`🎯 I just scored ${S.total}/100 on PauseMark — ${gameName}!\n\nThis is not just a quiz — Here it is not about just correctness. Timing is everything.\n\nThink you can beat me? Play here 👇\nhttps://pausemark.orucupoxygen.com`;
+  const shareLink=`https://pausemark.orucupoxygen.com/api/og?game=${GAMES[S.gi].id}`;
+  const shareText=`🎯 I just scored ${S.total}/100 on PauseMark — ${gameName}!\n\nThis is not just a quiz — Here it is not about just correctness. Timing is everything.\n\nThink you can beat me? Play here 👇\n${shareLink}`;
   const shareUrl=`https://wa.me/?text=${encodeURIComponent(shareText)}`;
   const otherGames=GAMES.map((g,i)=>({...g,idx:i})).filter((_,i)=>i!==S.gi);
   const otherGamesHtml=`
