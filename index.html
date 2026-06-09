@@ -565,7 +565,7 @@ async function getAllTimeScores(gameId){
     if(!d||!d.length)return[];
     const seen=new Set();
     const deduped=d.filter(s=>{if(seen.has(s.nick))return false;seen.add(s.nick);return true;});
-    return deduped.slice(0,3);
+    return deduped.slice(0,5);
   }catch(e){return[];}
 }
 async function saveScore(gameId,nick,score){
@@ -602,10 +602,10 @@ let S={gi:0,nick:'',phase:'lobby',deck:[],cur:0,total:0,res:[],rt:null,li:0,t0:0
 
 function renderLB(scores,allTime,hl){
   const g=GAMES[S.gi];
-  document.getElementById('lbt-alltime').textContent=g.name+' — All Time Top 3';
+  document.getElementById('lbt-alltime').textContent=g.name+' — All Time Top 5';
   const atList=document.getElementById('lbl-alltime');
   if(!allTime||!allTime.length){atList.innerHTML='<div class="lb-empty">No scores yet.</div>';}
-  else{atList.innerHTML=allTime.slice(0,3).map((s,i)=>{const rc=i===0?'gold':i===1?'silver':'bronze';const h=s.nick===hl?' hl':'';const sym=i===0?'#1':i===1?'#2':'#3';return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;}).join('');}
+  else{atList.innerHTML=allTime.slice(0,5).map((s,i)=>{const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'';const h=s.nick===hl?' hl':'';const sym=i===0?'#1':i===1?'#2':i===2?'#3':i===3?'#4':'#5';return`<div class="lb-row${h}"><span class="lb-rank ${rc}">${sym}</span><span class="lb-name">${s.nick}</span><span class="lb-score">${s.score}</span></div>`;}).join('');}
   document.getElementById('lbt').textContent=g.name+' — Today\'s Top 10';
   document.getElementById('lbd').textContent=todayLabel();
   const list=document.getElementById('lbl');
@@ -648,7 +648,7 @@ function renderGameView(){
     <div class="main-layout">
       <div class="game-panel" id="gp"></div>
       <div class="lb-panel">
-        <div class="lb-title" id="lbt-alltime">All Time Top 3</div>
+        <div class="lb-title" id="lbt-alltime">All Time Top 5</div>
         <div id="lbl-alltime" style="margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--ink-3)"></div>
         <div class="lb-title" id="lbt">Today's Top 10</div>
         <div class="lb-date" id="lbd"></div>
@@ -695,10 +695,29 @@ function renderNick(){
     <div class="nick-row">
       <input class="nick-input" id="ni" type="text" maxlength="20" placeholder="Any name..."/>
       <button class="btn-play" id="ng">Let's Play</button>
-    </div>`;
+    </div>
+    <div id="nick-msg" style="font-size:12px;margin-top:0.6rem;min-height:18px;line-height:1.6"></div>`;
   const inp=document.getElementById('ni');
-  const go=()=>{
+  const go=async()=>{
     const v=inp.value.trim();if(!v){inp.focus();return;}
+    const msg=document.getElementById('nick-msg');
+    if(msg)msg.innerHTML='<span style="color:var(--muted)">Checking...</span>';
+    // Check if nickname already exists in today's scores for this game
+    try{
+      const existing=await sbFetch(`/rest/v1/scores?game_id=eq.${encodeURIComponent(GAMES[S.gi].id)}&play_date=eq.${todayDate()}&nick=eq.${encodeURIComponent(v)}&limit=1`);
+      if(existing&&existing.length>0){
+        if(msg)msg.innerHTML=`<span style="color:var(--amber)">⚠️ "<strong>${v}</strong>" has already played today — score: <strong>${existing[0].score}</strong>. Is this you? <button onclick="proceedWithNick('${v.replace(/'/g,"\\'")}' )" style="background:var(--gold);border:none;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;color:var(--ink-2);margin-left:6px">Yes, it's me</button> or pick a different name.</span>`;
+        return;
+      }
+    }catch(e){}
+    if(msg)msg.innerHTML='';
+    startPlay(v);
+  };
+  window.proceedWithNick=(v)=>{
+    const msg=document.getElementById('nick-msg');if(msg)msg.innerHTML='';
+    startPlay(v);
+  };
+  const startPlay=(v)=>{
     S.nick=v;S.phase='play';S.deck=buildDeck(GAMES[S.gi]);S.cur=0;S.total=0;S.res=[];
     trackEvent(GAMES[S.gi].id,'attempt');
     renderPlay();
