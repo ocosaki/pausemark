@@ -137,7 +137,7 @@
     @keyframes pulse { 0%,100%{opacity:0.25;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
     @keyframes secondbeat { 0%{opacity:1;transform:scale(1.5);background:#c9a84c} 20%{opacity:1;transform:scale(1.5);background:#c9a84c} 21%{opacity:0.2;transform:scale(1);background:#bbb} 100%{opacity:0.2;transform:scale(1);background:#bbb} }
     .choices { display: flex; gap: 12px; justify-content: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
-    .choice-btn { min-width: 148px; padding: 14px 20px; background: #fff; border: 1.5px solid #c8c0b0; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .choice-btn { min-width: 148px; padding: 14px 20px; background: #fff; border: 1.5px solid #c8c0b0; border-radius: 8px; color: var(--ink-2); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07); white-space: pre-line; line-height: 1.8; }
     .choice-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-dark); background: #fffdf5; }
     .choice-btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .choice-btn.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
@@ -512,6 +512,23 @@ const GAMES = [
       { film:"The LIC Building was the tallest in India when built in 1959. How many floors does it have above ground?",                                                          correct:"13",               wrong:"21",                trap:"21 feels right for a building that dominated the skyline for 40 years" },
       { film:"The Great Trigonometrical Survey of India, which led to Mount Everest being named after its surveyor, began from which Chennai landmark?",                         correct:"St. Thomas Mount", wrong:"Fort St. George",   trap:"Fort St. George is the most famous British colonial landmark in Chennai" },
     ]
+  },
+  {
+    id: 'game-017', name: 'Adutha Vari', letterMs: 0,
+    label: 'Tamil Lyrics — Read the lyric and choose the next line',
+    goal: 'Read the Tamil song lyric and choose the next line', answerLabel: 'WHAT COMES NEXT?',
+    films: [
+      { film:"அடைமழை வரும் அதில் நனைவோமே\nகுளிர் காய்ச்சலோடு சிநேகம்", song:"Vaseegaraa", movie:"Minnaley", correct:"ஒரு போர்வைக்குள் இரு தூக்கம்", wrong:"ஒரு கூட்டுக்குள் இரு தேகம்", trap:"Both lines feel equally lyrical" },
+      { film:"பொதுவாக என் மனசு தங்கம்\nஒரு போட்டியின்னு வந்துவிட்டா சிங்கம்", song:"Podhuvaaga", movie:"Murattu Kaalai", correct:"உண்மையே சொல்வேன், நல்லதே செய்வேன்", wrong:"செஞ்சதே சொல்வேன், சொன்னதே செய்வேன்", trap:"Both lines sound like natural continuations" },
+      { film:"தேனில் வண்டு மூழ்கும்போது\nபாவம் என்று வந்தாள் மாது", song:"Andhi Mazhai", movie:"Raja Paarvai", correct:"நெஞ்சுக்குள் தீயை வைத்து\nமோகம் என்பாய்", wrong:"பூவுக்குள் தேனில்\nநின்று தாகம் என்பாய்", trap:"Both follow the same rhythm and imagery" },
+      { film:"தென்றல் என்னை தீண்டினால்\nசேலை தீண்டும் ஞாபகம்\nசின்ன பூக்கள் பார்க்கையில்\nதேகம் பார்த்த ஞாபகம்", song:"Kadhal Rojave", movie:"Roja", correct:"வெள்ளி ஓடை பேசினால்\nசொன்ன வார்த்தை ஞாபகம்", wrong:"புல்லின் ஈரம் சீண்டினால்\nகூந்தல் கோதும் ஞாபகம்", trap:"Both lines follow the ஞாபகம் pattern perfectly" },
+      { film:"சிநேகமோ...ப்ரேமமோ\nஈடிலா நேயமோ", song:"Hey Minnale", movie:"Amaran", correct:"பேரிலா மாயமோ\nகேள்வியே சுகமோ", wrong:"நானுமே நீயுமோ\nநாணமே தகுமோ", trap:"Both follow the same meter and feel" },
+      { film:"எந்த காற்றின் அளாவலில்\nமலரிதழ்கள் விரிந்திடுமோ", song:"Anal Mele", movie:"Varanam Aayiram", correct:"எந்த தேவ வினாடியில்\nமன அறைகள் திறந்திடுமோ", wrong:"எந்த பாட்டின் துழாவலில்\nமனமிரண்டும் இணைந்திடுமோ", trap:"Both continue the எந்த pattern identically" },
+      { film:"பூ விழி பார்வையில் மின்னல் காட்டினாள்\nஆயிரம் ஆசைகள் என்னில் ஊட்டினாள்\nஏனோ ஏனோ நெஞ்சை பூட்டினாள்", song:"Ennai Thaalaatta", movie:"Kadhalukku Mariyadhai", correct:"இரவும் பகலும் என்னை வாட்டினாள்\nஇதயம் அவள் பெயரில் மாற்றினாள்\nகாதல் தீயை வந்து மூட்டினாள்", wrong:"தூரிகை கண்களை மெல்ல தீட்டினாள்\nகாதலின் சாலையில் மெல்ல ஓட்டினாள்\nநெஞ்சில் நெஞ்சை அவள் கூட்டினாள்", trap:"Both follow the ினாள் rhyme scheme" },
+      { film:"பேச்செல்லாம் தாலாட்டு போல\nஎன்னை உறங்க வைக்க நீ இல்லை", song:"New York Nagaram", movie:"Sillunnu Oru Kadhal", correct:"தினமும் ஒரு முத்தம் தந்து\nகாலை காஃபி கொடுக்க நீ இல்லை", wrong:"மூச்செல்லாம் நீராட்டும் போது\nஎனைத் தோளில் தாங்க நீ இல்லை", trap:"Both follow நீ இல்லை pattern" },
+      { film:"வார்த்தை தேவை இல்லை,\nவாழும் காலம் வரை\nபாவை பார்வை மொழி பேசுமே", song:"Pookkal Pookkum", movie:"Madrasapattinam", correct:"நேற்று தேவை இல்லை,\nநாளை தேவை இல்லை\nஇன்று இந்த நொடி போதுமே", wrong:"வானம் தேவை இல்லை,\nபூமி தேவை இல்லை\nஉனது உயிரில் இடம் போதுமே", trap:"Both follow தேவை இல்லை pattern" },
+      { film:"அல்லி கொடிய காத்து அசைக்குது\nஅசையும் கொளத்து ஒடம்பு கூசுது", song:"Unnai Vida", movie:"Virumandi", correct:"புல்லரிச்சு பாவம்\nஎனைப் போலவே\nஅலைபாயுது", wrong:"கேக்காமலே தானா\nஒரு மோகத்தில்\nதலையாட்டுது", trap:"Both feel like natural continuations of the imagery" },
+    ]
   }
 ];
 
@@ -532,6 +549,7 @@ const GAME_COLORS = [
   { bg:'#0a0f1a', border:'#102040', accent:'#5080d0' }, // Game 14 — deep blue
   { bg:'#0f0f05', border:'#3a3a10', accent:'#c8c840' }, // Game 15 — currency yellow
   { bg:'#1a0505', border:'#4a1515', accent:'#e05050' }, // Game 16 — Madras red
+  { bg:'#0f051a', border:'#2a1040', accent:'#9060d0' }, // Game 17 — Tamil violet
 ];
 
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
@@ -758,9 +776,12 @@ function startCountdown(q){
 function renderPlay(){
   const g=GAMES[S.gi],q=S.deck[S.cur];
   const isAudio=g.type==='audio';
+  const isInstant=!isAudio&&g.letterMs===0;
   let pips='';
   for(let i=0;i<10;i++){const r=S.res[i];let c='pip';if(i<S.cur)c+=r.early?' ep':r.right?' ok':' bad';else if(i===S.cur)c+=' active';pips+=`<div class="${c}" id="p${i}"></div>`;}
   const opts=ssh([q.correct,q.wrong],q.correct.charCodeAt(0)+S.cur*13);
+  const choicesStyle=q.song?'display:flex;flex-direction:column;gap:12px;margin-bottom:1.25rem':'display:flex;gap:12px;justify-content:center;margin-bottom:1.25rem;flex-wrap:wrap';
+  const songMeta=q.song?`<div style="font-size:11px;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.4rem">${q.song} &nbsp;·&nbsp; ${q.movie}</div>`:'';
 
   const titleBlock = isAudio ? `
     <div class="title-wrap" style="text-align:center">
@@ -771,6 +792,11 @@ function renderPlay(){
         Listen to the BGM — then wait <strong style="color:var(--gold)">${Math.round(q.wait/1000)} seconds</strong> before answering
       </div>
       <audio id="bgm-player" preload="auto" src="https://cdn.jsdelivr.net/gh/ocosaki/pausemark@main/audio/${q.film}"></audio>
+    </div>` : isInstant ? `
+    <div class="title-wrap">
+      <div class="title-label">${g.name}</div>
+      ${songMeta}
+      <div style="font-family:'DM Sans',sans-serif;font-size:17px;color:var(--cream);line-height:1.9;text-align:center;white-space:pre-line;padding:0.5rem 0" id="rt">${q.film}</div>
     </div>` : `
     <div class="title-wrap"><div class="title-label">${g.name}</div><div class="title-text"><span id="rt"></span><span class="cur" id="cb"></span></div></div>`;
 
@@ -784,7 +810,7 @@ function renderPlay(){
     <div style="text-align:center;font-size:14px;color:#fff;font-weight:700;letter-spacing:0.12em;min-height:24px;margin-bottom:0.75rem;opacity:0;transition:opacity 0.5s;background:var(--gold);padding:6px 16px;border-radius:20px;display:inline-block;width:auto;margin-left:auto;margin-right:auto;" id="sc">⏱ NOW — START COUNTING</div>
     <div class="answer-label">${g.answerLabel}</div>
     <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
-    <div class="choices" id="cw" style="opacity:0;transition:opacity 0.4s">${opts.map(n=>`<button class="choice-btn" data-n="${n}" style="transition:none">${n}</button>`).join('')}</div>
+    <div id="cw" style="${choicesStyle};opacity:0;transition:opacity 0.4s">${opts.map(n=>`<button class="choice-btn" data-n="${n}" style="transition:none">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
   document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
 
@@ -808,6 +834,9 @@ function renderPlay(){
         startCountdown(q);
       },{once:true});
     }
+  } else if(isInstant){
+    // Give player 3 seconds to read the lyric before countdown starts
+    setTimeout(()=>startCountdown(q), 3000);
   } else {
     S.rt=setInterval(()=>{
       const el=document.getElementById('rt');if(!el){clearInterval(S.rt);return;}
@@ -847,7 +876,7 @@ function onTap(name,btn){
   if(early){fb.innerHTML='Too early — tapped at '+eS+'s, needed '+tS+'s. Forfeit. <strong>0 pts</strong><br><span style="font-size:11px;color:#aaa">Answer: '+q.correct+'</span>'+detailHtml;fb.className='feedback et';}
   else if(!correct){fb.innerHTML='Wrong — correct answer was <strong>'+q.correct+'</strong>. 0 pts'+detailHtml;fb.className='feedback bad';}
   else{const ded=Math.floor(Math.max(0,delta));let msg='Correct. Waited '+eS+'s';if(delta<=0)msg+=' — <strong>10 pts</strong>';else if(p>0)msg+=' ('+ded+'s over) — <strong>'+p+' pts</strong>';else msg+=' (too late) — <strong>0 pts</strong>';fb.innerHTML=msg+detailHtml;fb.className='feedback good';}
-  S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p});
+  S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p,song:q.song,movie:q.movie});
   S.cur++;
   const roundDelay = q.detail ? 8000 : 2000;
   if(S.cur<10){
@@ -889,8 +918,9 @@ function renderResult(sc){
     const tS=Math.round(r.target/1000),eS=(r.elapsed/1000).toFixed(1);
     const pc=r.p===10?'#1d9e60':r.p>0?'#c07820':'#c0392b';
     const st=r.early?`<span style="color:#c07820">early</span>`:r.right?`<span style="color:#1d9e60">✓</span>`:`<span style="color:#c0392b">✗</span>`;
-    const isAudio=GAMES[S.gi].type==='audio';
-    const label=isAudio?`BGM ${ri+1} — ${r.correct}`:r.film;
+    const isAudioGame=GAMES[S.gi].type==='audio';
+    const isLyricGame=GAMES[S.gi].letterMs===0&&!isAudioGame;
+    const label=isAudioGame?`BGM ${ri+1} — ${r.correct}`:isLyricGame?`${r.song||''} — ${r.movie||''}`:r.film;
     return`<tr><td>${label}</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${tS}s</td><td style="font-family:'DM Mono',monospace;color:#8a7f72">${eS}s</td><td style="font-family:'DM Mono',monospace;color:${pc};font-weight:600">${r.p}</td><td>${st}</td></tr>`;
   }).join('');
   document.getElementById('gp').innerHTML=`
