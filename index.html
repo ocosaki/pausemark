@@ -770,11 +770,16 @@ function startCountdown(q){
   if(sc){sc.style.opacity='1';setTimeout(()=>{if(sc)sc.style.opacity='0';},3000);}
   const cw=document.getElementById('cw');
   if(cw){
-    cw.style.opacity='1';
-    // Re-enable transitions after reveal so hover/tap states animate properly
-    setTimeout(()=>{
-      document.querySelectorAll('.choice-btn').forEach(b=>b.style.transition='');
-    },50);
+    // Use double rAF to ensure DOM has fully painted before fading in buttons
+    // This fixes iOS Safari rendering the previous button highlight state
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        cw.style.opacity='1';
+        setTimeout(()=>{
+          document.querySelectorAll('.choice-btn').forEach(b=>b.style.transition='');
+        },50);
+      });
+    });
   }
   const dot=document.getElementById('dot');
   S.t0=performance.now();
@@ -828,7 +833,7 @@ function renderPlay(){
     <div style="text-align:center;font-size:14px;color:#fff;font-weight:700;letter-spacing:0.12em;min-height:24px;margin-bottom:0.75rem;opacity:0;transition:opacity 0.5s;background:var(--gold);padding:6px 16px;border-radius:20px;display:inline-block;width:auto;margin-left:auto;margin-right:auto;" id="sc">⏱ NOW — START COUNTING</div>
     <div class="answer-label">${g.answerLabel}</div>
     <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
-    <div id="cw" style="${choicesStyle};opacity:0;transition:opacity 0.4s">${opts.map(n=>`<button class="choice-btn" data-n="${n}" style="transition:none">${n}</button>`).join('')}</div>
+    <div id="cw" style="${choicesStyle};opacity:0;transition:opacity 0.4s">${opts.map(n=>`<button class="choice-btn" data-n="${n}" style="transition:none;background:#fff;border-color:#c8c0b0;color:var(--ink-2)">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
   document.querySelectorAll('.choice-btn').forEach(b=>{
     b.addEventListener('click',()=>onTap(b.dataset.n,b));
