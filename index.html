@@ -529,6 +529,23 @@ const GAMES = [
       { film:"வார்த்தை தேவை இல்லை,\nவாழும் காலம் வரை\nபாவை பார்வை மொழி பேசுமே", song:"Pookkal Pookkum", movie:"Madrasapattinam", correct:"நேற்று தேவை இல்லை,\nநாளை தேவை இல்லை\nஇன்று இந்த நொடி போதுமே", wrong:"வானம் தேவை இல்லை,\nபூமி தேவை இல்லை\nஉனது உயிரில் இடம் போதுமே", trap:"Both follow தேவை இல்லை pattern" },
       { film:"அல்லி கொடிய காத்து அசைக்குது\nஅசையும் கொளத்து ஒடம்பு கூசுது", song:"Unnai Vida", movie:"Virumandi", correct:"புல்லரிச்சு பாவம்\nஎனைப் போலவே\nஅலைபாயுது", wrong:"கேக்காமலே தானா\nஒரு மோகத்தில்\nதலையாட்டுது", trap:"Both feel like natural continuations of the imagery" },
     ]
+  },
+  {
+    id: 'game-018', name: 'Miles Apart', letterMs: 85,
+    label: 'Indian Cities — closer than you think, further than you assume',
+    goal: 'Pick the city that is closer', answerLabel: 'WHICH IS CLOSER?',
+    films: [
+      { film:"Which is closer to Delhi?",           correct:"Mumbai",      wrong:"Kolkata",      trap:"Kolkata feels closer — Delhi is in the north and east feels natural" },
+      { film:"Which is closer to Visakhapatnam?",   correct:"Bhubaneswar", wrong:"Hyderabad",    trap:"Hyderabad is the AP capital — feels like it should be closest" },
+      { film:"Which is closer to Bangalore?",       correct:"Goa",         wrong:"Trivandrum",   trap:"Trivandrum is South India like Bangalore — feels closer" },
+      { film:"Which is closer to Mumbai?",          correct:"Ahmedabad",   wrong:"Nagpur",       trap:"Nagpur is in Maharashtra — same state feels closer" },
+      { film:"Which is closer to Chennai?",         correct:"Hyderabad",   wrong:"Kanyakumari",  trap:"Kanyakumari is in Tamil Nadu — same state feels closer" },
+      { film:"Which is closer to Bangalore?",       correct:"Mumbai",      wrong:"Nagpur",       trap:"Nagpur is in central India — feels equidistant or closer" },
+      { film:"Which is closer to Trivandrum?",      correct:"Kolkata",     wrong:"Jaipur",       trap:"Jaipur is in Rajasthan — feels geographically closer to South India" },
+      { film:"Which is closer to Chennai?",         correct:"Ahmedabad",   wrong:"Patna",        trap:"Patna is in the east — same general direction as Chennai going north" },
+      { film:"Which is closer to Coimbatore?",      correct:"Erode",       wrong:"Thrissur",     trap:"Thrissur is just across the Kerala border — feels like the closest city" },
+      { film:"Which is closer to Cochin?",          correct:"Trivandrum",  wrong:"Madurai",      trap:"Madurai is in Tamil Nadu just east of Kerala — feels very close" },
+    ]
   }
 ];
 
@@ -550,6 +567,7 @@ const GAME_COLORS = [
   { bg:'#0f0f05', border:'#3a3a10', accent:'#c8c840' }, // Game 15 — currency yellow
   { bg:'#1a0505', border:'#4a1515', accent:'#e05050' }, // Game 16 — Madras red
   { bg:'#0f051a', border:'#2a1040', accent:'#9060d0' }, // Game 17 — Tamil violet
+  { bg:'#051a0f', border:'#104028', accent:'#40b070' }, // Game 18 — map green
 ];
 
 const WAITS=[3,4,5,6,7,8,9,10,11,12];
