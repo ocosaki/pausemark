@@ -897,6 +897,8 @@ function onTap(name,btn){
   S.res.push({film:q.film,correct:q.correct,target:S.tgt,elapsed,early,right:correct,delta,p,song:q.song,movie:q.movie});
   S.cur++;
   const roundDelay = q.detail ? 8000 : 2000;
+  // Reset button highlight 200ms before next question to prevent bleed
+  setTimeout(()=>{document.querySelectorAll('.choice-btn').forEach(b=>{b.className='choice-btn';});}, Math.max(0, roundDelay - 200));
   if(S.cur<10){
     setTimeout(()=>{renderPlay();window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;},roundDelay);
   } else {
