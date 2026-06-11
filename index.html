@@ -830,7 +830,12 @@ function renderPlay(){
     <div class="dot-zone"><div class="dot" id="dot" style="opacity:0;animation:none"></div></div>
     <div id="cw" style="${choicesStyle};opacity:0;transition:opacity 0.4s">${opts.map(n=>`<button class="choice-btn" data-n="${n}" style="transition:none">${n}</button>`).join('')}</div>
     <div class="feedback" id="fb"></div>`;
-  document.querySelectorAll('.choice-btn').forEach(b=>b.addEventListener('click',()=>onTap(b.dataset.n,b)));
+  document.querySelectorAll('.choice-btn').forEach(b=>{
+    b.addEventListener('click',()=>onTap(b.dataset.n,b));
+    // Force style flush to prevent mobile browser caching previous highlight state
+    b.className='choice-btn';
+    void b.offsetHeight;
+  });
 
   S.li=0;S.t0=0;S.tgt=q.wait;
   if(S.rt)clearInterval(S.rt);
